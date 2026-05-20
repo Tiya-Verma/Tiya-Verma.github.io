@@ -41,6 +41,32 @@ const nomadlyArt = `
     style="display:block; width:70%; max-width:640px; height:auto; max-height:70%; object-fit:contain; filter: drop-shadow(0 12px 24px rgba(60,90,160,0.18));"/>
 `;
 
+const tierArt = `
+  <div style="position:absolute;inset:0;background:
+    radial-gradient(ellipse at 28% 22%, rgba(198,242,74,0.22), transparent 60%),
+    radial-gradient(ellipse at 75% 80%, rgba(255,255,255,0.10), transparent 65%),
+    linear-gradient(140deg, #0c2a18 0%, #14542a 55%, #2d8a3e 100%);"></div>
+  <div style="position:absolute;inset:0;background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 5px 5px; opacity: 0.07;"></div>
+  <div style="position:relative; display:flex; align-items:center; justify-content:center;">
+    <svg width="240" height="190" viewBox="0 0 240 190" xmlns="http://www.w3.org/2000/svg">
+      <rect x="60" y="12" width="120" height="166" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(223,245,194,0.35)" stroke-width="1.4"/>
+      <g font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" font-weight="600" letter-spacing="0.18em" fill="#dff5c2">
+        <line x1="60" y1="44" x2="180" y2="44" stroke="rgba(223,245,194,0.22)" stroke-width="1"/>
+        <line x1="60" y1="76" x2="180" y2="76" stroke="rgba(223,245,194,0.22)" stroke-width="1"/>
+        <line x1="60" y1="108" x2="180" y2="108" stroke="rgba(223,245,194,0.22)" stroke-width="1"/>
+        <line x1="60" y1="140" x2="180" y2="140" stroke="rgba(223,245,194,0.22)" stroke-width="1"/>
+        <text x="72" y="30" opacity="0.55">P5</text>
+        <text x="72" y="62" opacity="0.7">P4</text>
+        <rect x="60" y="84" width="120" height="24" rx="5" fill="#c6f24a"/>
+        <text x="72" y="101" fill="#0c2a18" font-weight="700">P3</text>
+        <circle cx="158" cy="96" r="3.6" fill="#0c2a18"/>
+        <text x="72" y="126" opacity="0.7">P2</text>
+        <text x="72" y="158" opacity="0.55">P1</text>
+      </g>
+    </svg>
+  </div>
+`;
+
 const mossArt = `
   <div style="position:absolute;inset:0;background:
     radial-gradient(ellipse at 25% 30%, rgba(140,200,255,0.25), transparent 60%),
@@ -59,6 +85,12 @@ const mossArt = `
   </div>
 `;
 
+export interface ProjectSection {
+  label: string;
+  intro?: string[];
+  items?: { heading: string; body: string }[];
+}
+
 export interface Project {
   slug: string;
   company: string;
@@ -73,10 +105,138 @@ export interface Project {
   skills: string[];
   overview: string[];
   problem: string[];
+  sections?: ProjectSection[];
   reflections: { heading: string; body: string }[];
+  heroVideo?: string;
 }
 
 export const projects: Project[] = [
+  {
+    slug: "tier-evo",
+    company: "Tier (Evo)",
+    year: "2025",
+    bg: "linear-gradient(140deg, #0c2a18 0%, #14542a 55%, #2d8a3e 100%)",
+    inner: tierArt,
+    heroVideo: "/Evo-overview-video.mov",
+    title: "Tier — contextual parking intelligence for Evo",
+    tagline:
+      "A contextual parking intelligence layer for the Evo car-share app — helping drivers know if a lot is open, which floor their car is on, and how to actually get to it before they walk over.",
+    role: "Product Designer (Concept)",
+    team: "Solo (concept project)",
+    timeline: "2025",
+    skills: [
+      "Product Design",
+      "Interaction Design",
+      "Systems Thinking",
+      "UX Research",
+      "Information Architecture",
+    ],
+    overview: [
+      "Tier is a contextual parking intelligence layer for the Evo car-share app — helping drivers know if a lot is open, which floor their car is on, and how to actually get to it before they walk over.",
+    ],
+    problem: [
+      "You open the Evo app. You spot a car two blocks away, parked at a parkade downtown. You reserve it, walk over, step inside the structure — and then the app goes completely silent. No floor. No lot hours. No access instructions. Just a street address and a timer counting down.",
+      "This is the moment Evo drops the ball. Every other step of the booking flow has information — the map, the car detail, the reserve screen — but the one moment that requires the most physical navigation gets nothing. Users wander dark parkades hitting the horn. They ride elevators to closed rooftop levels. They walk up to locked structures at 11:01 pm.",
+      "The problem isn't rare. It happens every time Evo parks a car inside a structure, which in Vancouver — a city full of multi-level parkades — is constantly.",
+    ],
+    sections: [
+      {
+        label: "the current space",
+        items: [
+          {
+            heading: "What Evo shows you today",
+            body: "When you tap a car in a parking structure, the app gives you: a license plate, a car model, a fuel percentage, and a street address. That's it. From there, you're on your own. The app hands off to Apple Maps or Google Maps with the street address as the destination — not the lot entrance, not the correct level, not even a note that the car is inside a structure at all. Maps drops you somewhere on the sidewalk. You figure out the rest.",
+          },
+          {
+            heading: "What's missing",
+            body: "There are three specific failure modes that happen regularly. First, the lot is closed: the Evo app has no awareness of operating hours for parking structures, so a car parked at a lot that closes at 10 pm looks identical to one on a 24-hour street spot. Second, the car is on the rooftop: some Vancouver parkades have rooftop levels that close independently from the rest of the structure — or are physically separated in a way that's hard to navigate without knowing ahead of time. Third, the car is somewhere on floors P1 through P5 and the driver doesn't know which one — without a level indicator, finding the car becomes a floor-by-floor search. These aren't edge cases. They're structural gaps in the product experience.",
+          },
+        ],
+      },
+      {
+        label: "discovery",
+        items: [
+          {
+            heading: "The insight hiding in plain sight",
+            body: "I didn't start with a solution. I started by mapping what the app actually knows at each step of the booking flow — and where that knowledge stops. Evo knows the car's GPS coordinates continuously. It knows the car's altitude. It knows when the engine turns off. It knows which parking structures exist in Vancouver. What it doesn't do is connect those signals into anything useful for the person walking toward the car. The gap isn't a data problem. It's a product problem. The information exists — it just never makes it into the experience.",
+          },
+          {
+            heading: "Three questions that shaped everything",
+            body: "Once I defined the gap, three questions guided the design. Where does the driver need this information most? Not on the map — it's too early. Not after they've arrived — it's too late. The answer was at the moment of decision: when they tap the car and when they reserve it. How do you get reliable floor and lot status data without a direct partnership with every parking operator in the city? This pointed toward a community-driven model, verified over time rather than sourced from a single authority. How do you add this layer without adding friction? The parking info should feel like it was always there — not like a new screen or a new workflow the driver has to learn.",
+          },
+        ],
+      },
+      {
+        label: "ideation",
+        items: [
+          {
+            heading: "The constraint that made the design better",
+            body: "Early on I set a rule for myself: no new screens. Whatever the parking layer looked like, it had to live inside the existing flow. Tap car → reserve → navigate → end trip. Adding a new step would mean asking drivers to change a habit they've already built. This constraint pushed me toward contextual surfacing. The parking info panel only appears on the car detail card when the car is inside a known structure. The closing alert only appears at reserve if the lot is closing within 30 minutes. The level guide only activates when the driver enters the lot boundary. The community prompt only fires at end trip if the car just parked in a structure. For street-parked cars — which is the majority — the app looks and behaves exactly as it does today. The layer is invisible unless it's needed.",
+          },
+          {
+            heading: "Mapping the four touchpoints",
+            body: "The system has four moments, each solving a distinct problem in the journey. At tap car — show the lot status, the floor, and how to get to the car, before the driver commits to walking over. At reserve — check if the lot is closing within the next 30 minutes and alert the driver proactively, with the option to switch to a nearby car without a cancellation fee. At navigate — hand off to Maps with the lot entrance coordinates (not just the street address), and when the driver arrives at the lot boundary, bring the Evo app back into focus with the level guide. At end trip — ask the driver to confirm their floor in exchange for 5 minutes of free driving. This is how the data stays current.",
+          },
+        ],
+      },
+      {
+        label: "the solution",
+        items: [
+          {
+            heading: "Parking info on the car detail card",
+            body: "When a car is parked inside a known structure, three status pills appear below the existing car info: lot open or closed, which floor the car is on, and a closing time warning if relevant. Below the pills, a collapsible panel shows the entrance location, operating hours, a visual floor strip with the car's level highlighted and any closed levels greyed out, and three numbered steps to reach the car. Each floor indicator carries a trust badge — Unverified, Community, Verified, or Evo Verified — so drivers know exactly how confident the information is.",
+          },
+          {
+            heading: "Closing check at reserve",
+            body: "If the parking lot closes within 30 minutes of when the driver reserves, a warning banner fires immediately. It tells them how much time they have, offers a one-tap switch to a nearby alternative, and waives the reservation fee automatically. No friction for doing the right thing.",
+          },
+          {
+            heading: "Two-phase navigation",
+            body: "Phase one sends the driver to the lot entrance — not a generic street address centroid, but the actual vehicle entry point stored per structure. Phase two kicks in when the driver's GPS enters the lot boundary: the Evo app comes back into focus and shows the level, section, and a \"tap horn to locate\" button.",
+          },
+          {
+            heading: "Community report at end trip",
+            body: "After parking inside a structure, drivers see a lightweight prompt: confirm your floor, note if the lot is open, toggle barrier-free entry and elevator status. The GPS pre-fills the floor based on altitude detection — most of the time, the driver just taps confirm. Submitting earns 5 minutes of free driving.",
+          },
+        ],
+      },
+      {
+        label: "design decisions",
+        items: [
+          {
+            heading: "Why community-driven instead of operator APIs",
+            body: "The clean answer would have been to integrate directly with parking operators — Impark, REEF, the City of Vancouver. Real-time data, no community management overhead. The honest answer is that's a partnership negotiation, a legal agreement, and a maintenance burden for every operator, every time something changes. A community model with Evo verification builds the same dataset incrementally, starts delivering value from day one with just GPS data, and gets more accurate over time rather than depending on external APIs staying reliable. For a concept built on what's possible within Evo's existing data and driver relationship, community-driven was the right call.",
+          },
+          {
+            heading: "Why GPS altitude for floor detection",
+            body: "Evo vehicles already stream GPS data continuously. Altitude on park — compared against a stored ground elevation baseline per structure — gives a floor estimate without any new hardware or any action from the driver. It's noisy (GPS altitude varies by ±5m), so it's never the final word. But it's a useful starting point that the community layer then confirms or corrects. For underground structures where GPS signal drops below grade, the system falls back to community-only data and displays an \"underground — GPS unavailable\" note rather than showing a wrong estimate.",
+          },
+          {
+            heading: "The trust tier system",
+            body: "The hardest design problem wasn't the UI — it was: how do you display information of varying reliability without either overstating confidence or burying the data in disclaimers? The answer was four explicit trust tiers with matching visual badges. GPS estimated shows as Unverified. A single driver report shows as Community. Three or more matching reports show as Verified. Evo ops review shows as Evo Verified. Each tier is a different color. Drivers can see at a glance how much to trust what they're looking at. This also creates a natural upgrade path. Data that starts as a GPS guess becomes community-verified automatically as drivers confirm it, without Evo having to manually audit every lot.",
+          },
+          {
+            heading: "The incentive model",
+            body: "Five minutes of free driving per accepted report is small enough that it doesn't attract gaming — you can't make meaningful money running fake floor reports. But it's real enough that drivers who care about the product will actually submit. Maximum three rewards per day per driver. Reports must be submitted within 60 seconds of end trip, while the driver is still in the lot.",
+          },
+        ],
+      },
+    ],
+    reflections: [
+      {
+        heading: "The best constraints are the ones you set yourself",
+        body: "The \"no new screens\" rule felt limiting at first. It turned out to be the thing that made the whole system coherent. Every feature had to earn its place in an existing moment rather than demanding its own moment. That discipline forced me to think about the flow as a single experience rather than a collection of features.",
+      },
+      {
+        heading: "Systems before screens",
+        body: "I could have started with the UI. The car detail card, the alert modal, the community prompt — these are the visible parts. But the design that matters here is the trust pipeline: how raw GPS data becomes a verified floor number over time, what happens when reports conflict, what it takes for data to degrade and re-enter the verification loop. Getting that system right made the screen design straightforward. The UI is just the surface. The architecture underneath is what makes it reliable.",
+      },
+      {
+        heading: "Designing in the gap",
+        body: "The most interesting design problems aren't the ones where something is broken — they're the ones where something just quietly doesn't exist. Evo's parking flow wasn't failing. It was simply stopping too early. Finding that gap, understanding why it existed, and building something that fills it without disturbing what's already working — that's the part of this project I'll carry into everything I design next.",
+      },
+    ],
+  },
   {
     slug: "procreate-3d",
     company: "Procreate 3D",

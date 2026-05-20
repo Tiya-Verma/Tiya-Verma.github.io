@@ -29,12 +29,30 @@ const { project } = Astro.props;
       <div class="max-w-6xl mx-auto">
         <div
           class="relative w-full aspect-[16/9] md:aspect-[16/8] rounded-xl overflow-hidden"
-          style={`background:${project.bg}`}
+          style={project.heroVideo
+            ? "background:#f5f5f7"
+            : `background:${project.bg}`}
         >
-          <div
-            class="absolute inset-0 flex items-center justify-center"
-            set:html={project.inner}
-          />
+          {
+            project.heroVideo ? (
+              <div class="absolute inset-0 flex items-center justify-center p-6 md:p-10">
+                <video
+                  src={project.heroVideo}
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  class="h-full max-h-full w-auto rounded-[2rem] object-contain shadow-[0_24px_60px_-18px_rgba(15,23,42,0.28)]"
+                />
+              </div>
+            ) : (
+              <div
+                class="absolute inset-0 flex items-center justify-center"
+                set:html={project.inner}
+              />
+            )
+          }
         </div>
       </div>
     </section>
@@ -101,6 +119,42 @@ const { project } = Astro.props;
         </ol>
       </div>
     </section>
+
+    <!-- optional rich sections (current space, discovery, ideation, solution, design decisions, etc.) -->
+    {
+      project.sections && project.sections.length > 0 && (
+        <>
+          {project.sections.map((s) => (
+            <section class="px-6 md:px-12 mt-20 md:mt-24">
+              <div class="max-w-6xl mx-auto">
+                <div class="text-[14px] text-soft lowercase">{s.label}</div>
+                {s.intro && s.intro.length > 0 && (
+                  <div class="mt-6 space-y-5 text-[16.5px] md:text-[17px] leading-[1.7] text-body">
+                    {s.intro.map((p) => (
+                      <p>{p}</p>
+                    ))}
+                  </div>
+                )}
+                {s.items && s.items.length > 0 && (
+                  <div class="mt-8 space-y-10">
+                    {s.items.map((item) => (
+                      <div>
+                        <h3 class="text-[19px] md:text-[20px] font-medium text-[#1f2937]">
+                          {item.heading}
+                        </h3>
+                        <p class="mt-3 text-[16.5px] md:text-[17px] leading-[1.7] text-body">
+                          {item.body}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </section>
+          ))}
+        </>
+      )
+    }
 
     <!-- reflections -->
     <section class="px-6 md:px-12 mt-20 md:mt-24 pb-20 md:pb-28">
