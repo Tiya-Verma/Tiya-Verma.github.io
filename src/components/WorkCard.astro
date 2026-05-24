@@ -6,43 +6,102 @@ interface Props {
   bg: string;
   /** optional inner content (logo / artwork) — html string */
   inner?: string;
+  /** optional one-line tagline shown next to the company chip */
+  tagline?: string;
+  /** optional type/status label (e.g. "Concept", "Live") shown on the right */
+  type?: string;
+  /** optional video src — when set, the card plays the video */
+  heroVideo?: string;
+  /** layout for the hero video: "phone" wraps in an iPhone frame, "desktop" plays as a landscape rectangle */
+  heroVideoFormat?: "phone" | "desktop";
 }
 
-const { company, year, href = "#", bg, inner } = Astro.props;
+const {
+  company,
+  year,
+  href = "#",
+  bg,
+  inner,
+  tagline,
+  type,
+  heroVideo,
+  heroVideoFormat = "phone",
+} = Astro.props;
 ---
 
 <a
   href={href}
-  class="group block relative aspect-[16/9] rounded-2xl overflow-hidden ring-1 ring-rule/70"
+  class="group block relative aspect-[16/9] rounded-md overflow-hidden ring-1 ring-rule/50"
   style={`background:${bg}`}
 >
-  <!-- inner artwork (gradient + content) -->
-  <div class="absolute inset-0 flex items-center justify-center">
-    {
-      inner && (
-        <div
-          class="relative w-full h-full flex items-center justify-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-          set:html={inner}
+  {
+    heroVideo ? (
+      heroVideoFormat === "desktop" ? (
+        <video
+          src={heroVideo}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
+      ) : (
+        <div class="absolute inset-0 flex items-center justify-center p-4 md:p-6">
+          <div class="relative h-full aspect-[9/19.5] max-h-full rounded-[1.4rem] bg-[#0f0f0f] p-[5px] shadow-[0_18px_40px_-18px_rgba(15,23,42,0.45)] transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+            <div class="relative h-full w-full overflow-hidden rounded-[1.15rem] bg-black">
+              <video
+                src={heroVideo}
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                class="absolute inset-0 h-full w-full object-cover"
+                style="transform: scale(1.08) translateX(-3%);"
+              />
+              <div class="pointer-events-none absolute inset-x-0 top-0 h-[1.7%] bg-white" />
+              <div class="pointer-events-none absolute inset-x-0 bottom-0 h-[3%] bg-white" />
+            </div>
+          </div>
+        </div>
+      )
+    ) : (
+      <div class="absolute inset-0 flex items-center justify-center">
+        {inner && (
+          <div
+            class="relative w-full h-full flex items-center justify-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            set:html={inner}
+          />
+        )}
+      </div>
+    )
+  }
+
+  <!-- meta chips pinned to bottom inside the card — visible on hover only -->
+  <div class="absolute inset-x-3 bottom-3 md:inset-x-4 md:bottom-4 flex items-center justify-between gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+    <div class="flex items-center gap-2 min-w-0">
+      <span
+        class="shrink-0 rounded-md bg-zinc-100 px-2 py-1 text-[14px] font-semibold text-zinc-900"
+      >
+        {company}
+      </span>
+      {
+        tagline && (
+          <span class="truncate rounded-md bg-zinc-100 px-2 py-1 text-[14px] text-zinc-500">
+            {tagline}
+          </span>
+        )
+      }
+    </div>
+    {
+      type && (
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="rounded-md bg-zinc-100 px-2 py-1 text-[14px] text-zinc-500">
+            {type}
+          </span>
+        </div>
       )
     }
-  </div>
-
-  <!-- subtle film grain / vignette -->
-  <div
-    class="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay"
-    style="background-image: radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px); background-size: 3px 3px;"
-  >
-  </div>
-
-  <!-- meta pill bottom-left -->
-  <div class="absolute left-4 bottom-4 md:left-5 md:bottom-5">
-    <div
-      class="inline-flex items-center gap-1.5 bg-white/95 backdrop-blur rounded-full px-3.5 py-1.5 shadow-sm ring-1 ring-black/5"
-    >
-      <span class="text-[14px] font-medium text-ink">{company}</span>
-      <span class="text-soft">·</span>
-      <span class="text-[14px] text-muted tabular-nums">{year}</span>
-    </div>
   </div>
 </a>

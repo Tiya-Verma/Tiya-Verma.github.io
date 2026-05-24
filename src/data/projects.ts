@@ -1,31 +1,22 @@
 // inline svgs / html used as artwork inside each project card
 const aliceArt = `
-  <div style="position:absolute;inset:0;background:
-    radial-gradient(ellipse at 30% 25%, rgba(255,255,255,0.35), transparent 60%),
-    radial-gradient(ellipse at 75% 80%, rgba(255,210,170,0.25), transparent 65%),
-    linear-gradient(140deg, #1f4d4a 0%, #2f6b62 45%, #5a8f7e 100%);"></div>
-  <div style="position:absolute;inset:0;background-image: radial-gradient(rgba(255,255,255,0.45) 1px, transparent 1px); background-size: 6px 6px; opacity: 0.12;"></div>
   <div style="position:relative; display:flex; align-items:center; justify-content:center;">
     <svg width="120" height="140" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="60" cy="56" rx="42" ry="48" fill="none" stroke="#fdf6ec" stroke-width="3"/>
-      <ellipse cx="60" cy="56" rx="42" ry="48" fill="rgba(253,246,236,0.12)"/>
-      <path d="M60 16 C 35 18, 22 38, 26 60" stroke="#fdf6ec" stroke-width="2" stroke-linecap="round" opacity="0.6" fill="none"/>
-      <rect x="56" y="100" width="8" height="22" rx="2" fill="#fdf6ec"/>
-      <rect x="46" y="120" width="28" height="6" rx="3" fill="#fdf6ec"/>
-      <circle cx="60" cy="56" r="6" fill="#fdf6ec"/>
+      <ellipse cx="60" cy="56" rx="42" ry="48" fill="none" stroke="#1f4d4a" stroke-width="3"/>
+      <ellipse cx="60" cy="56" rx="42" ry="48" fill="rgba(31,77,74,0.08)"/>
+      <path d="M60 16 C 35 18, 22 38, 26 60" stroke="#1f4d4a" stroke-width="2" stroke-linecap="round" opacity="0.55" fill="none"/>
+      <rect x="56" y="100" width="8" height="22" rx="2" fill="#1f4d4a"/>
+      <rect x="46" y="120" width="28" height="6" rx="3" fill="#1f4d4a"/>
+      <circle cx="60" cy="56" r="6" fill="#1f4d4a"/>
     </svg>
   </div>
 `;
 
 const procreateArt = `
-  <div style="position:absolute;inset:0;background:
-    radial-gradient(ellipse at 25% 30%, rgba(255,255,255,0.55), transparent 55%),
-    radial-gradient(ellipse at 75% 75%, rgba(255,255,255,0.25), transparent 60%),
-    linear-gradient(135deg, #ffb199 0%, #ff7a8a 45%, #c265ff 100%);"></div>
   <div style="position:relative; display:flex; align-items:center; justify-content:center;">
     <div style="width:140px; height:140px; transform: rotate(-12deg) skewY(-4deg); background:
       linear-gradient(135deg, #ffffff 0%, #ffe4ec 60%, #fbb4c4 100%);
-      border-radius:22px; box-shadow: 0 30px 60px -20px rgba(80,30,90,0.45), inset 0 -10px 30px rgba(255,255,255,0.4);
+      border-radius:22px; box-shadow: 0 22px 40px -18px rgba(80,30,90,0.28), inset 0 -10px 30px rgba(255,255,255,0.4);
       display:flex; align-items:center; justify-content:center;">
       <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#7a2d4a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 21c3-3 6-3 9-6s3-6 6-9"></path>
@@ -68,21 +59,8 @@ const tierArt = `
 `;
 
 const mossArt = `
-  <div style="position:absolute;inset:0;background:
-    radial-gradient(ellipse at 25% 30%, rgba(140,200,255,0.25), transparent 60%),
-    radial-gradient(ellipse at 75% 75%, rgba(180,120,255,0.18), transparent 65%),
-    linear-gradient(140deg, #0f1a3a 0%, #1f2c5c 50%, #3a2a6b 100%);"></div>
-  <div style="position:absolute;inset:0;background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 5px 5px; opacity: 0.1;"></div>
-  <div style="position:relative; display:flex; align-items:center; justify-content:center; width:80%; max-width:520px;">
-    <svg width="100%" height="160" viewBox="0 0 520 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 80 Q 20 30, 40 80 T 80 80 Q 100 130, 120 80 T 160 80 Q 180 20, 200 80 T 240 80 Q 260 110, 280 80 T 320 80 Q 340 40, 360 80 T 400 80 Q 420 120, 440 80 T 480 80 Q 500 50, 520 80"
-        stroke="#a8d4ff" stroke-width="2" fill="none" opacity="0.85"/>
-      <path d="M0 90 Q 20 60, 40 90 T 80 90 Q 100 120, 120 90 T 160 90 Q 180 70, 200 90 T 240 90 Q 260 105, 280 90 T 320 90 Q 340 75, 360 90 T 400 90 Q 420 110, 440 90 T 480 90 Q 500 80, 520 90"
-        stroke="#d8b8ff" stroke-width="1.6" fill="none" opacity="0.6"/>
-      <path d="M0 70 Q 20 50, 40 70 T 80 70 Q 100 90, 120 70 T 160 70 Q 180 55, 200 70 T 240 70 Q 260 80, 280 70 T 320 70 Q 340 60, 360 70 T 400 70 Q 420 85, 440 70 T 480 70 Q 500 65, 520 70"
-        stroke="#ffffff" stroke-width="1.2" fill="none" opacity="0.4"/>
-    </svg>
-  </div>
+  <img src="/mint-logo-overview.png" alt="MOSS / MINT logo"
+    style="display:block; width:70%; max-width:640px; height:auto; max-height:70%; object-fit:contain;"/>
 `;
 
 export interface ProjectSection {
@@ -108,14 +86,15 @@ export interface Project {
   sections?: ProjectSection[];
   reflections: { heading: string; body: string }[];
   heroVideo?: string;
+  heroVideoFormat?: "phone" | "desktop";
 }
 
 export const projects: Project[] = [
   {
     slug: "tier-evo",
-    company: "Tier (Evo)",
+    company: "Evo",
     year: "2025",
-    bg: "linear-gradient(140deg, #0c2a18 0%, #14542a 55%, #2d8a3e 100%)",
+    bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
     inner: tierArt,
     heroVideo: "/Evo-overview-video.mov",
     title: "Tier — contextual parking intelligence for Evo",
@@ -241,7 +220,7 @@ export const projects: Project[] = [
     slug: "procreate-3d",
     company: "Procreate 3D",
     year: "2025 — now",
-    bg: "linear-gradient(135deg, #ffb199 0%, #ff7a8a 45%, #c265ff 100%)",
+    bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
     inner: procreateArt,
     title: "Procreate 3D — sketching in three dimensions",
     tagline:
@@ -287,7 +266,7 @@ export const projects: Project[] = [
     slug: "alice-in-wellnessland",
     company: "Alice in Wellnessland",
     year: "2026",
-    bg: "linear-gradient(140deg, #1f4d4a 0%, #2f6b62 45%, #5a8f7e 100%)",
+    bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
     inner: aliceArt,
     title: "Alice in Wellnessland — wellness, down the rabbit hole",
     tagline:
@@ -332,7 +311,7 @@ export const projects: Project[] = [
     slug: "moss",
     company: "MOSS",
     year: "2025 — now",
-    bg: "linear-gradient(140deg, #0f1a3a 0%, #1f2c5c 50%, #3a2a6b 100%)",
+    bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
     inner: mossArt,
     title: "MOSS — brain signals, made legible",
     tagline:
@@ -376,8 +355,10 @@ export const projects: Project[] = [
     slug: "nomadly-earth",
     company: "Nomadly",
     year: "2024",
-    bg: "linear-gradient(135deg, #f3eef5 0%, #e7d9eb 50%, #d4dcef 100%)",
+    bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
     inner: nomadlyArt,
+    heroVideo: "/nomadly-overview-video.mov",
+    heroVideoFormat: "desktop",
     title: "Nomadly — picking a country with your hands",
     tagline:
       "Designing and building an interactive 3D globe for Nomadly, a digital-nomad platform that helps remote workers find where to live next.",
