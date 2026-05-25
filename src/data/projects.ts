@@ -285,7 +285,7 @@ export const projects: Project[] = [
     overview: [
       "Alice in Wellnessland is an AI-powered wellness companion built in one hackathon weekend. It consolidates three tools people normally juggle across separate apps — journaling, mood tracking, and goal-setting into a single, narrative-driven space loosely framed around Alice's Adventures in Wonderland.",
       "Three named surfaces shape the experience. \"Down the Rabbit Hole\" lets you journal by text or voice, with Gemini transcribing and reflecting back. \"The Looking Glass\" analyzes entries in real time for mood, stressors, and patterns. \"The Queen's Quest\" pairs goal-setting with a chatbot that nudges objectives toward SMART criteria.",
-      "Source: https://github.com/maraliwayway/alice-in-wellnessland",
+      "Source: https://github.com/Tiya-Verma/alice-in-wellnessland.git",
     ],
     problem: [
       "Wellness habits live in too many places such as a separate journaling app, a separate mood tracker, a separate goal tracker. Switching between them is friction that quietly undermines the habit they're supposed to support.",
