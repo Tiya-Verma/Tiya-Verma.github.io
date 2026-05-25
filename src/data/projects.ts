@@ -99,10 +99,10 @@ export const projects: Project[] = [
     heroVideo: "/Evo-overview-video.mov",
     title: "Tier — contextual parking intelligence for Evo",
     tagline:
-      "A contextual parking intelligence layer for the Evo car-share app — helping drivers know if a lot is open, which floor their car is on, and how to actually get to it before they walk over.",
-    role: "Product Designer (Concept)",
-    team: "Solo (concept project)",
-    timeline: "2025",
+      "A parking intelligence layer for Evo",
+    role: "Product Designer",
+    team: "Solo (Concept)",
+    timeline: "Summer 2026",
     skills: [
       "Product Design",
       "Interaction Design",
@@ -111,12 +111,12 @@ export const projects: Project[] = [
       "Information Architecture",
     ],
     overview: [
-      "Tier is a contextual parking intelligence layer for the Evo car-share app — helping drivers know if a lot is open, which floor their car is on, and how to actually get to it before they walk over.",
+      "This is a contextual parking intelligence layer for the Evo car-share app helping drivers know if a lot is open, which floor their car is on, and how to actually get to it before they walk over.",
     ],
     problem: [
       "You open the Evo app. You spot a car two blocks away, parked at a parkade downtown. You reserve it, walk over, step inside the structure — and then the app goes completely silent. No floor. No lot hours. No access instructions. Just a street address and a timer counting down.",
       "This is the moment Evo drops the ball. Every other step of the booking flow has information — the map, the car detail, the reserve screen — but the one moment that requires the most physical navigation gets nothing. Users wander dark parkades hitting the horn. They ride elevators to closed rooftop levels. They walk up to locked structures at 11:01 pm.",
-      "The problem isn't rare. It happens every time Evo parks a car inside a structure, which in Vancouver — a city full of multi-level parkades — is constantly.",
+      "The problem isn't rare. It happens every time Evo parks a car inside a structure, which in Vancouver, a city full of multi-level parkades is constantly.",
     ],
     sections: [
       {
@@ -141,7 +141,7 @@ export const projects: Project[] = [
           },
           {
             heading: "Three questions that shaped everything",
-            body: "Once I defined the gap, three questions guided the design. Where does the driver need this information most? Not on the map — it's too early. Not after they've arrived — it's too late. The answer was at the moment of decision: when they tap the car and when they reserve it. How do you get reliable floor and lot status data without a direct partnership with every parking operator in the city? This pointed toward a community-driven model, verified over time rather than sourced from a single authority. How do you add this layer without adding friction? The parking info should feel like it was always there — not like a new screen or a new workflow the driver has to learn.",
+            body: "Once I defined the gap, three questions guided the design. Where does the driver need this information most? Not on the map, it's too early. Not after they've arrived it's too late. The answer was at the moment of decision: when they tap the car and when they reserve it. How do you get reliable floor and lot status data without a direct partnership with every parking operator in the city? This pointed toward a community-driven model, verified over time rather than sourced from a single authority. How do you add this layer without adding friction? The parking info should feel like it was always there, not like a new screen or a new workflow the driver has to learn.",
           },
         ],
       },
@@ -150,11 +150,11 @@ export const projects: Project[] = [
         items: [
           {
             heading: "The constraint that made the design better",
-            body: "Early on I set a rule for myself: no new screens. Whatever the parking layer looked like, it had to live inside the existing flow. Tap car → reserve → navigate → end trip. Adding a new step would mean asking drivers to change a habit they've already built. This constraint pushed me toward contextual surfacing. The parking info panel only appears on the car detail card when the car is inside a known structure. The closing alert only appears at reserve if the lot is closing within 30 minutes. The level guide only activates when the driver enters the lot boundary. The community prompt only fires at end trip if the car just parked in a structure. For street-parked cars — which is the majority — the app looks and behaves exactly as it does today. The layer is invisible unless it's needed.",
+            body: "Early on I set a rule for myself: no new screens. Whatever the parking layer looked like, it had to live inside the existing flow. Tap car → reserve → navigate → end trip. Adding a new step would mean asking drivers to change a habit they've already built. This constraint pushed me toward contextual surfacing. The parking info panel only appears on the car detail card when the car is inside a known structure. The closing alert only appears at reserve if the lot is closing within 30 minutes. The level guide only activates when the driver enters the lot boundary. The community prompt only fires at end trip if the car just parked in a structure. For street-parked cars which is the majority, the app looks and behaves exactly as it does today. The layer is invisible unless it's needed.",
           },
           {
             heading: "Mapping the four touchpoints",
-            body: "The system has four moments, each solving a distinct problem in the journey. At tap car — show the lot status, the floor, and how to get to the car, before the driver commits to walking over. At reserve — check if the lot is closing within the next 30 minutes and alert the driver proactively, with the option to switch to a nearby car without a cancellation fee. At navigate — hand off to Maps with the lot entrance coordinates (not just the street address), and when the driver arrives at the lot boundary, bring the Evo app back into focus with the level guide. At end trip — ask the driver to confirm their floor in exchange for 5 minutes of free driving. This is how the data stays current.",
+            body: "The system has four moments, each solving a distinct problem in the journey. At tap car, show the lot status, the floor, and how to get to the car, before the driver commits to walking over. At reserve it checks if the lot is closing within the next 30 minutes and alert the driver proactively, with the option to switch to a nearby car without a cancellation fee. At navigate it hands off to Maps with the lot entrance coordinates (not just the street address), and when the driver arrives at the lot boundary, bring the Evo app back into focus with the level guide. At end trip it asks the driver to confirm their floor in exchange for 5 minutes of free driving. This is how the data stays current.",
           },
         ],
       },
@@ -175,7 +175,7 @@ export const projects: Project[] = [
           },
           {
             heading: "Community report at end trip",
-            body: "After parking inside a structure, drivers see a lightweight prompt: confirm your floor, note if the lot is open, toggle barrier-free entry and elevator status. The GPS pre-fills the floor based on altitude detection — most of the time, the driver just taps confirm. Submitting earns 5 minutes of free driving.",
+            body: "After parking inside a structure, drivers see a lightweight prompt: confirm your floor, note if the lot is open, toggle barrier-free entry and elevator status. The GPS pre-fills the floor based on altitude detection most of the time, the driver just taps confirm. Submitting earns 5 minutes of free driving.",
           },
         ],
       },
@@ -184,19 +184,19 @@ export const projects: Project[] = [
         items: [
           {
             heading: "Why community-driven instead of operator APIs",
-            body: "The clean answer would have been to integrate directly with parking operators — Impark, REEF, the City of Vancouver. Real-time data, no community management overhead. The honest answer is that's a partnership negotiation, a legal agreement, and a maintenance burden for every operator, every time something changes. A community model with Evo verification builds the same dataset incrementally, starts delivering value from day one with just GPS data, and gets more accurate over time rather than depending on external APIs staying reliable. For a concept built on what's possible within Evo's existing data and driver relationship, community-driven was the right call.",
+            body: "The clean answer would have been to integrate directly with parking operators like Impark, REEF, the City of Vancouver. Real-time data, no community management overhead. The honest answer is that's a partnership negotiation, a legal agreement, and a maintenance burden for every operator, every time something changes. A community model with Evo verification builds the same dataset incrementally, starts delivering value from day one with just GPS data, and gets more accurate over time rather than depending on external APIs staying reliable. For a concept built on what's possible within Evo's existing data and driver relationship, community-driven was the right call.",
           },
           {
             heading: "Why GPS altitude for floor detection",
-            body: "Evo vehicles already stream GPS data continuously. Altitude on park — compared against a stored ground elevation baseline per structure — gives a floor estimate without any new hardware or any action from the driver. It's noisy (GPS altitude varies by ±5m), so it's never the final word. But it's a useful starting point that the community layer then confirms or corrects. For underground structures where GPS signal drops below grade, the system falls back to community-only data and displays an \"underground — GPS unavailable\" note rather than showing a wrong estimate.",
+            body: "Evo vehicles already stream GPS data continuously. Altitude on park is compared against a stored ground elevation baseline per structure which gives a floor estimate without any new hardware or any action from the driver. It's noisy (GPS altitude varies by ±5m), so it's never the final word. But it's a useful starting point that the community layer then confirms or corrects. For underground structures where GPS signal drops below grade, the system falls back to community-only data and displays an \"underground — GPS unavailable\" note rather than showing a wrong estimate.",
           },
           {
             heading: "The trust tier system",
-            body: "The hardest design problem wasn't the UI — it was: how do you display information of varying reliability without either overstating confidence or burying the data in disclaimers? The answer was four explicit trust tiers with matching visual badges. GPS estimated shows as Unverified. A single driver report shows as Community. Three or more matching reports show as Verified. Evo ops review shows as Evo Verified. Each tier is a different color. Drivers can see at a glance how much to trust what they're looking at. This also creates a natural upgrade path. Data that starts as a GPS guess becomes community-verified automatically as drivers confirm it, without Evo having to manually audit every lot.",
+            body: "The hardest design problem wasn't the UI, it was: how do you display information of varying reliability without either overstating confidence or burying the data in disclaimers? The answer was four explicit trust tiers with matching visual badges. GPS estimated shows as Unverified. A single driver report shows as Community. Three or more matching reports show as Verified. Evo ops review shows as Evo Verified. Each tier is a different color. Drivers can see at a glance how much to trust what they're looking at. This also creates a natural upgrade path. Data that starts as a GPS guess becomes community-verified automatically as drivers confirm it, without Evo having to manually audit every lot.",
           },
           {
             heading: "The incentive model",
-            body: "Five minutes of free driving per accepted report is small enough that it doesn't attract gaming — you can't make meaningful money running fake floor reports. But it's real enough that drivers who care about the product will actually submit. Maximum three rewards per day per driver. Reports must be submitted within 60 seconds of end trip, while the driver is still in the lot.",
+            body: "Five minutes of free driving per accepted report is small enough that it doesn't attract gaming, you can't make meaningful money running fake floor reports. But it's real enough that drivers who care about the product will actually submit. Maximum three rewards per day per driver. Reports must be submitted within 60 seconds of end trip, while the driver is still in the lot.",
           },
         ],
       },
@@ -208,26 +208,26 @@ export const projects: Project[] = [
       },
       {
         heading: "Systems before screens",
-        body: "I could have started with the UI. The car detail card, the alert modal, the community prompt — these are the visible parts. But the design that matters here is the trust pipeline: how raw GPS data becomes a verified floor number over time, what happens when reports conflict, what it takes for data to degrade and re-enter the verification loop. Getting that system right made the screen design straightforward. The UI is just the surface. The architecture underneath is what makes it reliable.",
+        body: "I could have started with the UI. The car detail card, the alert modal, the community prompt, these are the visible parts. But the design that matters here is the trust pipeline: how raw GPS data becomes a verified floor number over time, what happens when reports conflict, what it takes for data to degrade and re-enter the verification loop. Getting that system right made the screen design straightforward. The UI is just the surface. The architecture underneath is what makes it reliable.",
       },
       {
         heading: "Designing in the gap",
-        body: "The most interesting design problems aren't the ones where something is broken — they're the ones where something just quietly doesn't exist. Evo's parking flow wasn't failing. It was simply stopping too early. Finding that gap, understanding why it existed, and building something that fills it without disturbing what's already working — that's the part of this project I'll carry into everything I design next.",
+        body: "The most interesting design problems aren't the ones where something is broken, they're the ones where something just quietly doesn't exist. Evo's parking flow wasn't failing. It was simply stopping too early. Finding that gap, understanding why it existed, and building something that fills it without disturbing what's already working, that's the part of this project I'll carry into everything I design next.",
       },
     ],
   },
   {
     slug: "procreate-3d",
     company: "Procreate 3D",
-    year: "2025 — now",
+    year: "Summer 2026",
     bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
     inner: procreateArt,
     title: "Procreate 3D — sketching in three dimensions",
     tagline:
-      "A Pencil-first tool that turns 2D doodles into 3D assets — designed to live inside a designer's existing workflow.",
-    role: "Designer & iOS developer (solo project)",
-    team: "Solo",
-    timeline: "2025 — present",
+      "3D assets designed to live inside a your workflow",
+    role: "Designer & iOS developer",
+    team: "Solo (Concept)",
+    timeline: "Summer 2026",
     skills: [
       "Swift",
       "SwiftUI",
@@ -237,12 +237,12 @@ export const projects: Project[] = [
       "3D graphics",
     ],
     overview: [
-      "Procreate 3D started as a question: what would Procreate feel like if a sketch could lift off the page? The current direction is a small iPad app that takes a closed 2D drawing and inflates it into a soft, claymation-style 3D form — designed to live inside a designer's existing workflow, not replace it. A doodle drawn with Apple Pencil becomes a 3D asset you can drop into Figma, render flat as a PNG, or (later) preview spatially on Vision Pro.",
-      "I'm building it solo in Swift. The engine runs on-device through RealityKit, with a real-time inflation algorithm and live tuning sliders, so the feel of the output can be shaped by hand — closer to choosing a brush than configuring a tool.",
+      "Procreate 3D started as a question: what would Procreate feel like if a sketch could lift off the page? The current direction is a small iPad app that takes a closed 2D drawing and inflates it into a soft, claymation-style 3D form, designed to live inside a designer's existing workflow, not replace it. A doodle drawn with Apple Pencil becomes a 3D asset you can drop into Figma, render flat as a PNG, or (later) preview spatially on Vision Pro.",
+      "I'm building it in Swift. The engine runs on-device through RealityKit, with a real-time inflation algorithm and live tuning sliders, so the feel of the output can be shaped by hand — closer to choosing a brush than configuring a tool.",
       "Source: https://github.com/Tiya-Verma/procreate3D",
     ],
     problem: [
-      "Most 3D modelling tools are built for technical pipelines, not the way people actually sketch — they ask the artist to \"think in three dimensions\" before drawing the first mark.",
+      "Most 3D modelling tools are built for technical pipelines, not the way people actually sketch but they ask the artist to \"think in three dimensions\" before drawing the first mark.",
       "Translating a 2D brush gesture into a 3D form without losing immediacy is harder than it sounds: depth has to emerge from the drawing, not be specified alongside it.",
       "Onboarding a casual artist into a 3D coordinate system without ever surfacing the coordinate system.",
       "The closest existing tools (Womp, Spline) start from a sculptable primitive in 3D space, not a drawn 2D mark. There's a gap for a Pencil-first tool that turns flat sketches directly into solid forms.",
@@ -250,15 +250,15 @@ export const projects: Project[] = [
     reflections: [
       {
         heading: "Designing for depth without breaking flow",
-        body: "The core technical question — how a flat sketch implies depth — turned out to also be the core design question. Early versions inflated each interior point by its distance to the boundary, which is mathematically clean but produced a sharp ridge along the long axis of any elongated shape. The fix wasn't more math; it was a constraint: cap the height at a fraction of the maximum, so the ridge collapses into a flat-topped pillow. The geometry got better, but the deeper win was that the constraint matched how the brain reads \"puffy\" — something that bulges out and then plateaus. The math and the perception aligned, but only after the math was deliberately limited.",
+        body: "The core technical question is how a flat sketch implies depth which turned out to also be the core design question. Early versions inflated each interior point by its distance to the boundary, which is mathematically clean but produced a sharp ridge along the long axis of any elongated shape. The fix wasn't more math; it was a constraint: cap the height at a fraction of the maximum, so the ridge collapses into a flat-topped pillow. The geometry got better, but the deeper win was that the constraint matched how the brain reads \"puffy\" — something that bulges out and then plateaus. The math and the perception aligned, but only after the math was deliberately limited.",
       },
       {
         heading: "Building and designing in the same loop",
-        body: "Working solo in Swift collapses design and implementation into a single step. Every parameter — how much the surface smooths, where the height plateaus, how steep the dome — is simultaneously a line of code and a visual decision. To make that tractable I exposed three of them as live sliders inside the running app. Tuning the algorithm felt more like adjusting a brush than rewriting a function. It also surfaced a quieter shift: the design tool I was making for an imagined user was also the design tool I was using to make it.",
+        body: "Working solo in Swift collapses design and implementation into a single step. Every parameter such as how much the surface smooths, where the height plateaus, how steep the dome is simultaneously a line of code and a visual decision. To make that tractable I exposed three of them as live sliders inside the running app. Tuning the algorithm felt more like adjusting a brush than rewriting a function. It also surfaced a quieter shift: the design tool I was making for an imagined user was also the design tool I was using to make it.",
       },
       {
         heading: "Constraints as a design tool",
-        body: "The most useful design move so far was deciding what the app is not. Early concepts had it living on Apple Vision Pro for children's learning, or for architects sketching buildings. The install base, the precision required, and the time-to-magic killed both. Repositioning it as a tool that drops into Figma — Pencil-drawn doodles as 3D assets — narrowed the scope, made the primary distribution channel obvious, and turned Vision Pro from a market dependency into a future delight. The constraint of \"must fit inside someone's existing workflow\" did more design work than any wireframe.",
+        body: "The most useful design move so far was deciding what the app is not. Early concepts had it living on Apple Vision Pro for children's learning, or for architects sketching buildings. The install base, the precision required, and the time-to-magic killed both. Repositioning it as a tool that drops into Figma — Pencil-drawn doodles as 3D assets, narrowed the scope, made the primary distribution channel obvious, and turned Vision Pro from a market dependency into a future delight. The constraint of \"must fit inside someone's existing workflow\" did more design work than any wireframe.",
       },
     ],
   },
@@ -270,10 +270,10 @@ export const projects: Project[] = [
     inner: aliceArt,
     title: "Alice in Wellnessland — wellness, down the rabbit hole",
     tagline:
-      "A hackathon-built wellness app that folds journaling, mood analysis, and goal-setting into one Wonderland-inspired space.",
-    role: "Designer & front-end developer",
-    team: "Hackathon team (fill in members)",
-    timeline: "Hackathon, 2026",
+      "An AI-powered wellness companion",
+    role: "UX Designer & full-stack developer",
+    team: "1 designer, 3 developers",
+    timeline: "cmd-f 2026",
     skills: [
       "Next.js",
       "React",
@@ -283,41 +283,41 @@ export const projects: Project[] = [
       "MongoDB Atlas",
     ],
     overview: [
-      "Placeholder overview — Alice in Wellnessland is an AI-powered wellness companion built in one hackathon weekend. It consolidates three tools people normally juggle across separate apps — journaling, mood tracking, and goal-setting — into a single, narrative-driven space loosely framed around Alice's Adventures in Wonderland.",
+      "Alice in Wellnessland is an AI-powered wellness companion built in one hackathon weekend. It consolidates three tools people normally juggle across separate apps — journaling, mood tracking, and goal-setting into a single, narrative-driven space loosely framed around Alice's Adventures in Wonderland.",
       "Three named surfaces shape the experience. \"Down the Rabbit Hole\" lets you journal by text or voice, with Gemini transcribing and reflecting back. \"The Looking Glass\" analyzes entries in real time for mood, stressors, and patterns. \"The Queen's Quest\" pairs goal-setting with a chatbot that nudges objectives toward SMART criteria.",
       "Source: https://github.com/maraliwayway/alice-in-wellnessland",
     ],
     problem: [
-      "Wellness habits live in too many places — a separate journaling app, a separate mood tracker, a separate goal tracker. Switching between them is friction that quietly undermines the habit they're supposed to support.",
-      "Most journaling tools don't do anything with what you write — there's no synthesis back to the user, no sense of being read.",
+      "Wellness habits live in too many places such as a separate journaling app, a separate mood tracker, a separate goal tracker. Switching between them is friction that quietly undermines the habit they're supposed to support.",
+      "Most journaling tools don't do anything with what you write, there's no synthesis back to the user, no sense of being read.",
       "Goal-setting apps tend to be either too rigid (templated forms) or too loose (free text with no structure). Neither helps you set a goal you'll actually keep.",
     ],
     reflections: [
       {
         heading: "Building a narrative metaphor under hackathon time pressure",
-        body: "Placeholder reflection — what the Wonderland framing did for the product (and what it cost) when every minute counted.",
+        body: "what the Wonderland framing did for the product (and what it cost) when every minute counted.",
       },
       {
         heading: "Designing with an LLM as a real-time collaborator",
-        body: "Placeholder reflection — wiring Gemini into the journaling and goal-setting flows changed what \"feedback\" meant in the UX. Notes on what worked and where it felt off.",
+        body: "wiring Gemini into the journaling and goal-setting flows changed what \"feedback\" meant in the UX. Notes on what worked and where it felt off.",
       },
       {
         heading: "Shipping a coherent product in a weekend",
-        body: "Placeholder reflection — what we cut, what we kept, and what \"finished enough\" looked like for a 48-hour build.",
+        body: "What we cut, what we kept, and what \"finished enough\" looked like for a 48-hour build.",
       },
     ],
   },
   {
     slug: "moss",
-    company: "MOSS",
+    company: "UBC MINT",
     year: "2025 — now",
     bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
     inner: mossArt,
     title: "MOSS — brain signals, made legible",
     tagline:
-      "A full-stack tool that turns raw EEG from a Muse headset into something a researcher (or curious human) can actually use.",
-    role: "Product Front-End Developer",
-    team: "UBC MINT (Multidisciplinary Innovation Team)",
+      "A workspace that simplifies managing brain data",
+    role: "SWE Front-End Developer",
+    team: "UBC MINT (Multifaceted Innovations in Neurotechnology)",
     timeline: "2025 — present",
     skills: [
       "TypeScript",
@@ -327,27 +327,27 @@ export const projects: Project[] = [
       "UI design",
     ],
     overview: [
-      "Placeholder overview — MOSS is UBC MINT's brain-signal processing app for the Muse EEG headset. It streams data live over WebSockets, stores it in TimescaleDB, and surfaces it through a front-end built for researchers and curious students.",
+      "MOSS is UBC MINT's brain-signal processing app for the Muse EEG headset. It streams data live over WebSockets, stores it in TimescaleDB, and surfaces it through a front-end built for researchers and curious students.",
       "I work on the front-end: turning a fairly technical real-time pipeline into a UI that doesn't feel like a lab readout. The goal is making brain-signal processing feel less like a research instrument and more like a tool built for people.",
       "Source: https://github.com/Tiya-Verma/fullstack-moss-app",
     ],
     problem: [
-      "Most EEG tooling is built for clinicians or signal-processing engineers — the interfaces assume you already know what to look for.",
+      "Most EEG tooling is built for clinicians or signal-processing engineers as the interfaces assume you already know what to look for.",
       "Real-time visualization at this kind of sample rate is unforgiving: dropped frames or laggy updates make the signal feel untrustworthy, even when the data is fine.",
       "The team needed a UI that worked for both a real Muse headset and a mock data server, so contributors without hardware could still develop and test.",
     ],
     reflections: [
       {
         heading: "Designing UI for data you can't slow down",
-        body: "Placeholder reflection — what changes when the interface has to keep up with a live signal stream, and how that shaped the components I built.",
+        body: "What changes when the interface has to keep up with a live signal stream, and how that shaped the components I built.",
       },
       {
         heading: "Working across a multi-language stack",
-        body: "Placeholder reflection — collaborating with engineers writing the backend in Rust and Python while the front-end stayed in TypeScript. Notes on contracts, debugging, and where ambiguity lived.",
+        body: "Collaborating with engineers writing the backend in Rust and Python while the front-end stayed in TypeScript. Notes on contracts, debugging, and where ambiguity lived.",
       },
       {
         heading: "Building for two audiences at once",
-        body: "Placeholder reflection — researchers want precision, curious users want intuition. What it meant to design surfaces that didn't betray either one.",
+        body: "Researchers want precision, curious users want intuition. What it meant to design surfaces that didn't betray either one.",
       },
     ],
   },
@@ -361,10 +361,10 @@ export const projects: Project[] = [
     heroVideoFormat: "desktop",
     title: "Nomadly — picking a country with your hands",
     tagline:
-      "Designing and building an interactive 3D globe for Nomadly, a digital-nomad platform that helps remote workers find where to live next.",
-    role: "Front-end developer & designer — 3D globe feature",
-    team: "Built solo, in collaboration with the Nomadly team",
-    timeline: "2024",
+      "Helping people find their next travel muse",
+    role: "Front-end developer",
+    team: "freelance",
+    timeline: "Summer 2025",
     skills: [
       "React",
       "Vite",
@@ -375,28 +375,28 @@ export const projects: Project[] = [
       "Tailwind CSS",
     ],
     overview: [
-      "Nomadly (nomadly.me) is a lifestyle platform for digital nomads — its tagline is \"The world is yours.\" The site helps remote workers pick a country that fits their work, budget, and life through a quiz, a regional country explorer, and a blog/community layer.",
+      "Nomadly (nomadly.me) is a lifestyle platform for digital nomads with its tagline is \"The world is yours.\" The site helps remote workers pick a country that fits their work, budget, and life through a quiz, a regional country explorer, and a blog/community layer.",
       "I designed and built the 3D interactive globe that sits at the center of the destination-discovery flow. Instead of choosing a region from a flat dropdown, a visitor can drag the globe, hover a country, and let the surface itself become the navigation. The feature reframes \"picking a country\" from a form-filling task into something closer to looking at a map and wondering.",
       "Tech-wise it's a React + Vite component using react-globe.gl on top of three.js / react-three-fiber, with Framer Motion handling smaller transitions and Tailwind for the surrounding UI.",
       "Source: https://github.com/Tiya-Verma/nomadly_earth · Live: https://www.nomadly.me",
     ],
     problem: [
-      "Nomadly's existing destination-discovery flow was a regional dropdown — Europe, Asia, Middle East, Americas, Africa, Oceania. It asked the visitor to already know roughly where they wanted to go, which is the opposite of the openness that draws people to nomadism in the first place.",
-      "A map could fix the geography problem but creates a new one: most web maps flatten the world into political abstractions. For a nomad weighing a country, the decision is half informational, half emotional — and a flat 2D map doesn't speak to the second half.",
+      "Nomadly's existing destination-discovery flow was a regional dropdown Europe, Asia, Middle East, Americas, Africa, Oceania. It asked the visitor to already know roughly where they wanted to go, which is the opposite of the openness that draws people to nomadism in the first place.",
+      "A map could fix the geography problem but creates a new one: most web maps flatten the world into political abstractions. For a nomad weighing a country, the decision is half informational, half emotional and a flat 2D map doesn't speak to the second half.",
       "3D web globes tend to be demoware: heavy, hard to read, slow on mid-tier devices, ornamental. The challenge was making one feel light enough to actually use as the front door of a real product flow.",
     ],
     reflections: [
       {
         heading: "Designing for the feeling, not just the data",
-        body: "Placeholder reflection — what I learned about the globe being as much an emotional surface as an informational one, and how that shifted the visual language (atmosphere, glow, easing) away from a typical data-viz aesthetic.",
+        body: "What I learned about the globe being as much an emotional surface as an informational one, and how that shifted the visual language (atmosphere, glow, easing) away from a typical data-viz aesthetic.",
       },
       {
         heading: "Performance as a design constraint",
-        body: "Placeholder reflection — three.js scenes get expensive fast on slower devices and mobile. Decisions about geometry density, texture resolution, and animation frame budget became design decisions, not just technical ones.",
+        body: "Three.js scenes get expensive fast on slower devices and mobile. Decisions about geometry density, texture resolution, and animation frame budget became design decisions, not just technical ones.",
       },
       {
         heading: "Working as the embedded specialist on a small product team",
-        body: "Placeholder reflection — building one feature inside someone else's product means owning the deep end of one thing while staying responsive to a wider roadmap I don't set. Notes on what changed about how I scoped, communicated, and shipped.",
+        body: "Building one feature inside someone else's product means owning the deep end of one thing while staying responsive to a wider roadmap I don't set. Notes on what changed about how I scoped, communicated, and shipped.",
       },
     ],
   },
