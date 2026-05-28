@@ -115,7 +115,7 @@ export const projects: Project[] = [
     ],
     problem: [
       "You open the Evo app. You spot a car two blocks away, parked at a parkade downtown. You reserve it, walk over, step inside the structure — and then the app goes completely silent. No floor. No lot hours. No access instructions. Just a street address and a timer counting down.",
-      "This is the moment Evo drops the ball. Every other step of the booking flow has information — the map, the car detail, the reserve screen — but the one moment that requires the most physical navigation gets nothing. Users wander dark parkades hitting the horn. They ride elevators to closed rooftop levels. They walk up to locked structures at 11:01 pm.",
+      "This is the moment Evo drops the ball. Every other step of the booking flow has information like the map, the car detail, the reserve screen — but the one moment that requires the most physical navigation gets nothing. Users wander dark parkades hitting the horn. They ride elevators to closed rooftop levels. They walk up to locked structures at 11:01 pm.",
       "The problem isn't rare. It happens every time Evo parks a car inside a structure, which in Vancouver, a city full of multi-level parkades is constantly.",
     ],
     sections: [
@@ -124,11 +124,11 @@ export const projects: Project[] = [
         items: [
           {
             heading: "What Evo shows you today",
-            body: "When you tap a car in a parking structure, the app gives you: a license plate, a car model, a fuel percentage, and a street address. That's it. From there, you're on your own. The app hands off to Apple Maps or Google Maps with the street address as the destination — not the lot entrance, not the correct level, not even a note that the car is inside a structure at all. Maps drops you somewhere on the sidewalk. You figure out the rest.",
+            body: "When you tap a car in a parking structure, the app gives you: a license plate, a car model, a fuel percentage, and a street address. That's it. From there, you're on your own. The app hands off to Apple Maps or Google Maps with the street address as the destination and not the lot entrance, not the correct level, not even a note that the car is inside a structure at all. Maps drops you somewhere on the sidewalk. You figure out the rest.",
           },
           {
             heading: "What's missing",
-            body: "There are three specific failure modes that happen regularly. First, the lot is closed: the Evo app has no awareness of operating hours for parking structures, so a car parked at a lot that closes at 10 pm looks identical to one on a 24-hour street spot. Second, the car is on the rooftop: some Vancouver parkades have rooftop levels that close independently from the rest of the structure — or are physically separated in a way that's hard to navigate without knowing ahead of time. Third, the car is somewhere on floors P1 through P5 and the driver doesn't know which one — without a level indicator, finding the car becomes a floor-by-floor search. These aren't edge cases. They're structural gaps in the product experience.",
+            body: "There are three specific failure modes that happen regularly. First, the lot is closed: the Evo app has no awareness of operating hours for parking structures, so a car parked at a lot that closes at 10 pm looks identical to one on a 24-hour street spot. Second, the car is on the rooftop: some Vancouver parkades have rooftop levels that close independently from the rest of the structure or are physically separated in a way that's hard to navigate without knowing ahead of time. Third, the car is somewhere on floors P1 through P5 and the driver doesn't know which one without a level indicator, finding the car becomes a floor-by-floor search. These aren't edge cases. They're structural gaps in the product experience.",
           },
         ],
       },
@@ -137,7 +137,7 @@ export const projects: Project[] = [
         items: [
           {
             heading: "The insight hiding in plain sight",
-            body: "I didn't start with a solution. I started by mapping what the app actually knows at each step of the booking flow — and where that knowledge stops. Evo knows the car's GPS coordinates continuously. It knows the car's altitude. It knows when the engine turns off. It knows which parking structures exist in Vancouver. What it doesn't do is connect those signals into anything useful for the person walking toward the car. The gap isn't a data problem. It's a product problem. The information exists — it just never makes it into the experience.",
+            body: "I didn't start with a solution. I started by mapping what the app actually knows at each step of the booking flow, and where that knowledge stops. Evo knows the car's GPS coordinates continuously. It knows the car's altitude. It knows when the engine turns off. It knows which parking structures exist in Vancouver. What it doesn't do is connect those signals into anything useful for the person walking toward the car. The gap isn't a data problem. It's a product problem. The information exists but it just never makes it into the experience.",
           },
           {
             heading: "Three questions that shaped everything",
@@ -163,7 +163,7 @@ export const projects: Project[] = [
         items: [
           {
             heading: "Parking info on the car detail card",
-            body: "When a car is parked inside a known structure, three status pills appear below the existing car info: lot open or closed, which floor the car is on, and a closing time warning if relevant. Below the pills, a collapsible panel shows the entrance location, operating hours, a visual floor strip with the car's level highlighted and any closed levels greyed out, and three numbered steps to reach the car. Each floor indicator carries a trust badge — Unverified, Community, Verified, or Evo Verified — so drivers know exactly how confident the information is.",
+            body: "When a car is parked inside a known structure, three status pills appear below the existing car info: lot open or closed, which floor the car is on, and a closing time warning if relevant. Below the pills, a collapsible panel shows the entrance location, operating hours, a visual floor strip with the car's level highlighted and any closed levels greyed out, and three numbered steps to reach the car. Each floor indicator carries a trust badge — Unverified, Community, Verified, or Evo Verified, so drivers know exactly how confident the information is.",
           },
           {
             heading: "Closing check at reserve",
@@ -171,7 +171,7 @@ export const projects: Project[] = [
           },
           {
             heading: "Two-phase navigation",
-            body: "Phase one sends the driver to the lot entrance — not a generic street address centroid, but the actual vehicle entry point stored per structure. Phase two kicks in when the driver's GPS enters the lot boundary: the Evo app comes back into focus and shows the level, section, and a \"tap horn to locate\" button.",
+            body: "Phase one sends the driver to the lot entrance and not a generic street address centroid, but the actual vehicle entry point stored per structure. Phase two kicks in when the driver's GPS enters the lot boundary: the Evo app comes back into focus and shows the level, section, and a \"tap horn to locate\" button.",
           },
           {
             heading: "Community report at end trip",
