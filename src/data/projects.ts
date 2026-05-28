@@ -13,15 +13,15 @@ const aliceArt = `
 `;
 
 const procreateArt = `
+  <div style="position:absolute;inset:0;background-image: radial-gradient(rgba(255,255,255,0.55) 1px, transparent 1px); background-size: 4px 4px; opacity: 0.18; mix-blend-mode: overlay;"></div>
   <div style="position:relative; display:flex; align-items:center; justify-content:center;">
-    <div style="width:140px; height:140px; transform: rotate(-12deg) skewY(-4deg); background:
-      linear-gradient(135deg, #ffffff 0%, #ffe4ec 60%, #fbb4c4 100%);
-      border-radius:22px; box-shadow: 0 22px 40px -18px rgba(80,30,90,0.28), inset 0 -10px 30px rgba(255,255,255,0.4);
+    <div style="width:170px; height:170px; border-radius:50%;
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.95) 0%, rgba(252,232,242,0.75) 40%, rgba(232,222,245,0.7) 75%, rgba(218,224,245,0.7) 100%);
+      box-shadow: 0 20px 40px -14px rgba(150,130,190,0.3), inset 0 2px 22px rgba(255,255,255,0.9), inset 0 -8px 26px rgba(200,180,220,0.18);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
       display:flex; align-items:center; justify-content:center;">
-      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#7a2d4a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 21c3-3 6-3 9-6s3-6 6-9"></path>
-        <path d="M14 4l6 6"></path>
-        <path d="M3 21l3-9 9-3"></path>
+      <svg width="72" height="72" viewBox="0 0 384 512" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 10px rgba(180,140,200,0.35));">
+        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
       </svg>
     </div>
   </div>
