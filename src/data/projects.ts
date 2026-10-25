@@ -63,10 +63,34 @@ const mossArt = `
     style="display:block; width:70%; max-width:640px; height:auto; max-height:70%; object-fit:contain;"/>
 `;
 
+const codeReviewerArt = `
+  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="10" width="100" height="100" rx="26" fill="rgba(255,255,255,0.7)"/>
+    <path d="M48 44 32 60l16 16M72 44l16 16-16 16" stroke="#3b4a6b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M64 38 56 82" stroke="#6b7fd7" stroke-width="6" stroke-linecap="round"/>
+  </svg>
+`;
+
+const moodprintArt = `
+  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="46" stroke="#c2789a" stroke-width="3" opacity="0.35"/>
+    <circle cx="60" cy="60" r="34" stroke="#c2789a" stroke-width="3" opacity="0.55"/>
+    <circle cx="60" cy="60" r="22" stroke="#c2789a" stroke-width="3" opacity="0.8"/>
+    <circle cx="60" cy="60" r="10" fill="#c2789a"/>
+  </svg>
+`;
+
+// text fields accept **bold** markup
 export interface ProjectSection {
-  label: string;
+  label?: string;
   intro?: string[];
-  items?: { heading: string; body: string }[];
+  items?: { heading: string; body?: string; bullets?: string[] }[];
+  /** list style for items (default "numbered") */
+  list?: "numbered" | "bullets";
+  /** run the bold heading into the body instead of on its own line */
+  inline?: boolean;
+  /** image shown after the section; without src it renders as a placeholder */
+  figure?: { src?: string; alt: string };
 }
 
 export interface Project {
@@ -87,9 +111,12 @@ export interface Project {
   reflections: { heading: string; body: string }[];
   heroVideo?: string;
   heroVideoFormat?: "phone" | "desktop";
+  /** overrides the default Role / Team / Timeline / Skills info blocks */
+  info?: { label: string; value: string }[];
 }
 
 export const projects: Project[] = [
+  /* previous Evo case study — kept for reference
   {
     slug: "tier-evo",
     company: "Evo",
@@ -215,6 +242,139 @@ export const projects: Project[] = [
         body: "The most interesting design problems aren't the ones where something is broken, they're the ones where something just quietly doesn't exist. Evo's parking flow wasn't failing. It was simply stopping too early. Finding that gap, understanding why it existed, and building something that fills it without disturbing what's already working, that's the part of this project I'll carry into everything I design next.",
       },
     ],
+  },
+  */
+  {
+    slug: "tier-evo",
+    company: "Evo Parking Layer",
+    year: "2026",
+    bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
+    inner: tierArt,
+    heroVideo: "/Evo-overview-video.mov",
+    title: "Evo Parking Layer",
+    tagline: "A contextual parking layer for Evo",
+    role: "Designer & Developer",
+    team: "Solo",
+    timeline: "2026",
+    skills: [],
+    info: [
+      { label: "Type", value: "Concept Project" },
+      { label: "Role", value: "Designer & Developer" },
+      { label: "Team", value: "Solo" },
+      { label: "Year", value: "2026" },
+    ],
+    overview: [
+      // "**Evo Parking Layer** adds lot status, floor level, access steps and closing alerts to Evo's existing booking flow, with no new screens and zero change for street-parked cars.",
+      "An intelligence layer that adds lot status, floor level, access steps and closing alerts to Evo's existing booking flow, with no new screens and zero change for street-parked cars.",
+    ],
+    problem: [],
+    sections: [
+      {
+        intro: [
+          // "A contextual parking layer for the Evo car-share app that tells drivers if a lot is open, which floor their car is on, and how to reach it, built with Next.js, TypeScript, Tailwind CSS, MapLibre GL & PostgreSQL/PostGIS.",
+        ],
+        figure: { alt: "Car detail card with parking panel" },
+      },
+      {
+        label: "Problem",
+        inline: true,
+        items: [
+          {
+            heading: "Evo stops helping at the parkade door.",
+            body: "When a car is parked inside a structure, the app shows a plate, a fuel level and a street address. Maps drops you on the sidewalk and you figure out the rest.",
+            bullets: [
+              "**No floor**: drivers search level by level while a 30-minute hold runs out",
+              "**No lot hours**: a car in a lot closing at 10 pm looks identical to one on the street",
+              "**No access info**: no entrance, no note about closed rooftop levels",
+              "**GPS can't fix it alone**: concrete blocks the signal, and altitude is off by about 5m when floors are 3.2m apart",
+            ],
+          },
+          {
+            // heading: "I lived it first, then checked it wasn't just me.",
+            // body: "After the fireworks festival, I spent 15 minutes searching a parkade for my car until the hold expired, then walked to a second lot that had already closed. I interviewed 20 Evo users about their last bad trip, and three problems kept coming up:",
+            heading: "Interviews with 20 Evo users surfaced three recurring problems:",
+            bullets: [
+              "Finding cars inside parkades at night",
+              "Cars not where the pin said they were",
+              "Walking to lots that had already closed",
+            ],
+          },
+        ],
+      },
+      {
+        label: "Solution",
+        inline: true,
+        items: [
+          {
+            heading: "Parking info on the car card:",
+            body: "Status pills for lot open, floor and closing time, plus a floor strip with closed levels greyed out and three steps to reach the car.",
+          },
+          {
+            heading: "Closing alert at reserve:",
+            body: "Fires when the lot closes within 30 minutes, with a one-tap switch to a nearby car and the fee waived.",
+          },
+          {
+            heading: "Two-phase navigation:",
+            body: "Maps routes to the lot's actual entrance, then an in-lot guide shows the level, a stall hint and a tap-horn button.",
+          },
+          {
+            heading: "Community report at end trip:",
+            body: "GPS pre-fills the floor, the driver confirms it and earns 5 minutes of free driving. This keeps the data current.",
+          },
+        ],
+        figure: { alt: "The four touchpoints across the booking flow" },
+      },
+      {
+        label: "How it works",
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "GPS floor detection:",
+            // body: "Floor is estimated from the car's altitude minus the lot's ground elevation, divided by floor height. Signal is rated good, degraded or lost, and underground lots fall back to community data.",
+            body: "Floor is estimated from the car's altitude minus the lot's ground elevation, divided by floor height. Underground lots fall back to community data.",
+          },
+          {
+            heading: "Trust tiers:",
+            // body: "Every floor shows a badge, from Unverified (GPS) to Community (1 report), Verified (3+ agree) and Evo Verified (ops). Conflicting reports go to ops review instead of being promoted automatically.",
+            body: "Every floor shows a badge, from Unverified (GPS) to Community (1 report), Verified (3+ agree) and Evo Verified (ops).",
+          },
+          {
+            heading: "Data model:",
+            // body: "A 4-table PostgreSQL schema with PostGIS boundaries and spatial indexes for geofencing, a UNIQUE trip ID so each trip counts once, and a partial index that flags unmapped lots.",
+            body: "A 4-table PostgreSQL schema with PostGIS boundaries for geofencing and a UNIQUE trip ID so each trip counts once.",
+          },
+          {
+            heading: "Frontend:",
+            // body: "A client-side state machine in the Next.js App Router, MapLibre loaded browser-only, and Tailwind colors on CSS variables for light and dark mode.",
+            body: "A client-side state machine in the Next.js App Router, with MapLibre for the map and Tailwind for styling.",
+          },
+        ],
+      },
+      /* Key decisions — removed for now
+      {
+        label: "Key decisions",
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "No new screens:",
+            body: "Every feature had to fit an existing moment, so the layer stays invisible unless it's needed.",
+          },
+          {
+            heading: "Community data over operator APIs:",
+            body: "Works from day one without partnerships and gets more accurate with every trip.",
+          },
+          {
+            heading: "Show confidence, don't hide it:",
+            body: "Trust badges let drivers judge the data at a glance instead of reading disclaimers.",
+          },
+        ],
+        figure: { alt: "Floor strip with trust badges" },
+      },
+      */
+    ],
+    reflections: [],
   },
   {
     slug: "procreate-3d",
@@ -399,5 +559,38 @@ export const projects: Project[] = [
         body: "Building one feature inside someone else's product means owning the deep end of one thing while staying responsive to a wider roadmap I don't set. Notes on what changed about how I scoped, communicated, and shipped.",
       },
     ],
+  },
+  // placeholders: details to come
+  {
+    slug: "ai-codereviewer",
+    company: "AI Code Reviewer",
+    year: "",
+    bg: "linear-gradient(140deg, #eef1fb 0%, #f3f4fb 50%, #f8f8fc 100%)",
+    inner: codeReviewerArt,
+    title: "AI Code Reviewer",
+    tagline: "Details coming soon",
+    role: "TBD",
+    team: "TBD",
+    timeline: "TBD",
+    skills: [],
+    overview: ["Details coming soon."],
+    problem: [],
+    reflections: [],
+  },
+  {
+    slug: "moodprint",
+    company: "Moodprint",
+    year: "",
+    bg: "linear-gradient(140deg, #fbeff4 0%, #fbf3f6 50%, #fcf8fa 100%)",
+    inner: moodprintArt,
+    title: "Moodprint",
+    tagline: "Details coming soon",
+    role: "TBD",
+    team: "TBD",
+    timeline: "TBD",
+    skills: [],
+    overview: ["Details coming soon."],
+    problem: [],
+    reflections: [],
   },
 ];

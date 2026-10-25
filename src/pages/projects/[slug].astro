@@ -23,12 +23,22 @@ const frameAspect = isPhone
 
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-const info = [
-  { label: "Role", value: project.role },
-  { label: "Team", value: project.team },
-  { label: "Timeline", value: project.timeline },
-  { label: "Skills", value: project.skills.join(", ") },
-];
+// escape, then turn **text** into <strong>
+const rich = (t: string) =>
+  t
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-heading">$1</strong>');
+
+const info = (
+  project.info ?? [
+    { label: "Role", value: project.role },
+    { label: "Team", value: project.team },
+    { label: "Timeline", value: project.timeline },
+    { label: "Skills", value: project.skills.join(", ") },
+  ]
+).filter((i) => i.value);
 ---
 
 <Layout title={`${project.company} — tiya verma`}>
@@ -52,7 +62,7 @@ const info = [
           {project.company}
         </h1>
         <p class="mt-4 max-w-xl text-callout md:text-title3 font-medium text-soft">
-          {summary}
+          <Fragment set:html={rich(summary)} />
         </p>
       </div>
     </section>
@@ -139,40 +149,98 @@ const info = [
               )
             }
 
+            {project.problem.length > 0 && (
             <div>
               <h2 class="section-label">Problem</h2>
               <ol class="numbered">
                 {project.problem.map((p) => <li>{p}</li>)}
               </ol>
             </div>
+            )}
 
             {
-              project.sections?.map((s) => (
-                <div>
-                  <h2 class="section-label">{capitalize(s.label)}</h2>
-                  {s.intro && s.intro.length > 0 && (
-                    <div class="space-y-5">
-                      {s.intro.map((p) => (
-                        <p>{p}</p>
-                      ))}
-                    </div>
-                  )}
-                  {s.items && s.items.length > 0 && (
-                    <ol class:list={["numbered", s.intro?.length && "mt-6"]}>
-                      {s.items.map((item) => (
-                        <li>
-                          <strong class="block font-semibold text-heading">
-                            {item.heading}
-                          </strong>
-                          <span class="block mt-1">{item.body}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  )}
-                </div>
-              ))
+              project.sections?.map((s) => {
+                const List = s.list === "bullets" ? "ul" : "ol";
+                return (
+                  <div>
+                    {s.label && (
+                      <h2 class="section-label">{capitalize(s.label)}</h2>
+                    )}
+                    {s.intro && s.intro.length > 0 && (
+                      <div class="space-y-5">
+                        {s.intro.map((p) => (
+                          <p set:html={rich(p)} />
+                        ))}
+                      </div>
+                    )}
+                    {s.items && s.items.length > 0 && (
+                      <List
+                        class:list={[
+                          s.list === "bullets" ? "bulleted" : "numbered",
+                          s.intro?.length && "mt-6",
+                        ]}
+                      >
+                        {s.items.map((item) =>
+                          s.inline ? (
+                            <li>
+                              <strong class="font-semibold text-heading">
+                                {item.heading}
+                              </strong>
+                              {item.body && (
+                                <>
+                                  {" "}
+                                  <span set:html={rich(item.body)} />
+                                </>
+                              )}
+                              {item.bullets && (
+                                <ul class="bulleted mt-3">
+                                  {item.bullets.map((b) => (
+                                    <li set:html={rich(b)} />
+                                  ))}
+                                </ul>
+                              )}
+                            </li>
+                          ) : (
+                            <li>
+                              <strong class="block font-semibold text-heading">
+                                {item.heading}
+                              </strong>
+                              {item.body && (
+                                <span class="block mt-1" set:html={rich(item.body)} />
+                              )}
+                              {item.bullets && (
+                                <ul class="bulleted mt-3">
+                                  {item.bullets.map((b) => (
+                                    <li set:html={rich(b)} />
+                                  ))}
+                                </ul>
+                              )}
+                            </li>
+                          )
+                        )}
+                      </List>
+                    )}
+                    {s.figure && (
+                      <figure class="mt-8">
+                        {s.figure.src ? (
+                          <img
+                            src={s.figure.src}
+                            alt={s.figure.alt}
+                            class="w-full rounded-2xl shadow-[2px_4px_12px_rgba(0,0,0,0.08)]"
+                          />
+                        ) : (
+                          <div class="flex aspect-video w-full items-center justify-center rounded-2xl bg-fill px-6 text-center text-footnote text-soft">
+                            {s.figure.alt}
+                          </div>
+                        )}
+                      </figure>
+                    )}
+                  </div>
+                );
+              })
             }
 
+            {project.reflections.length > 0 && (
             <div>
               <h2 class="section-label">Reflections</h2>
               <ol class="numbered">
@@ -188,6 +256,7 @@ const info = [
                 }
               </ol>
             </div>
+            )}
           </article>
         </div>
       </div>

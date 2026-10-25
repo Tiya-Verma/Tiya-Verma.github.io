@@ -97,6 +97,9 @@
   .numbered {
     @apply list-decimal space-y-4 pl-5 marker:font-semibold marker:text-ghost;
   }
+  .bulleted {
+    @apply list-disc space-y-2 pl-5 marker:text-ghost;
+  }
   /* frosted chip, like Apple's thin material */
   .chip {
     @apply rounded-full bg-white/75 px-3 py-1 text-footnote text-muted backdrop-blur-md ring-1 ring-black/5;
