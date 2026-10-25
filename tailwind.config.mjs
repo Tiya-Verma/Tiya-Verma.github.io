@@ -50,6 +50,7 @@ export default {
         title2: ["22px", { lineHeight: "1.4", letterSpacing: "-0.02em" }],
         title1: ["28px", { lineHeight: "1.2", letterSpacing: "-0.022em" }],
         "large-title": ["34px", { lineHeight: "1.15", letterSpacing: "-0.024em" }],
+        "title-xl": ["48px", { lineHeight: "1.1", letterSpacing: "-0.026em" }],
         hero: ["56px", { lineHeight: "1.05", letterSpacing: "-0.028em" }],
         "hero-sm": ["44px", { lineHeight: "1.08", letterSpacing: "-0.026em" }],
       },

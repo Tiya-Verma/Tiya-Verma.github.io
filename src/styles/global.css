@@ -90,6 +90,13 @@
   .eyebrow {
     @apply text-subhead font-medium text-soft lowercase;
   }
+  /* case-study section heading + numbered list (project pages) */
+  .section-label {
+    @apply mb-2 text-callout font-semibold text-heading;
+  }
+  .numbered {
+    @apply list-decimal space-y-4 pl-5 marker:font-semibold marker:text-ghost;
+  }
   /* frosted chip, like Apple's thin material */
   .chip {
     @apply rounded-full bg-white/75 px-3 py-1 text-footnote text-muted backdrop-blur-md ring-1 ring-black/5;
