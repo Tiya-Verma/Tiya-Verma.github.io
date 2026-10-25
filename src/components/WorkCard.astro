@@ -31,7 +31,7 @@ const {
 
 <a
   href={href}
-  class="group block relative aspect-[16/9] rounded-md overflow-hidden ring-1 ring-rule/50"
+  class="group block relative aspect-[16/9] rounded-2xl overflow-hidden ring-1 ring-black/[0.04] [transform:translateZ(0)]"
   style={`background:${bg}`}
 >
   {
@@ -44,11 +44,11 @@ const {
           loop
           playsinline
           preload="metadata"
-          class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-apple group-hover:scale-[1.03]"
         />
       ) : (
         <div class="absolute inset-0 flex items-center justify-center p-4 md:p-6">
-          <div class="relative h-full aspect-[9/19.5] max-h-full rounded-[1.4rem] bg-[#0f0f0f] p-[5px] shadow-[0_18px_40px_-18px_rgba(15,23,42,0.45)] transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+          <div class="relative h-full aspect-[9/19.5] max-h-full rounded-[1.4rem] bg-[#0f0f0f] p-[5px] shadow-[0_18px_40px_-18px_rgba(15,23,42,0.45)] transition-transform duration-700 ease-apple group-hover:scale-[1.03]">
             <div class="relative h-full w-full overflow-hidden rounded-[1.15rem] bg-black">
               <video
                 src={heroVideo}
@@ -70,7 +70,7 @@ const {
       <div class="absolute inset-0 flex items-center justify-center">
         {inner && (
           <div
-            class="relative w-full h-full flex items-center justify-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            class="relative w-full h-full flex items-center justify-center transition-transform duration-700 ease-apple group-hover:scale-[1.03]"
             set:html={inner}
           />
         )}
@@ -79,16 +79,16 @@ const {
   }
 
   <!-- meta chips pinned to bottom inside the card — visible on hover only -->
-  <div class="absolute inset-x-3 bottom-3 md:inset-x-4 md:bottom-4 flex items-center justify-between gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+  <div class="absolute inset-x-3 bottom-3 md:inset-x-4 md:bottom-4 flex items-center justify-between gap-2 opacity-0 transition-opacity duration-300 ease-apple group-hover:opacity-100 group-focus-visible:opacity-100">
     <div class="flex items-center gap-2 min-w-0">
       <span
-        class="shrink-0 rounded-md bg-zinc-100 px-2 py-1 text-[14px] font-semibold text-zinc-900"
+        class="chip shrink-0 font-semibold text-heading"
       >
         {company}
       </span>
       {
         tagline && (
-          <span class="truncate rounded-md bg-zinc-100 px-2 py-1 text-[14px] text-zinc-500">
+          <span class="chip truncate">
             {tagline}
           </span>
         )
@@ -97,7 +97,7 @@ const {
     {
       type && (
         <div class="flex items-center gap-2 shrink-0">
-          <span class="rounded-md bg-zinc-100 px-2 py-1 text-[14px] text-zinc-500">
+          <span class="chip">
             {type}
           </span>
         </div>

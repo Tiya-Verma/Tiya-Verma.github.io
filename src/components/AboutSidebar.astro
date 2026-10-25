@@ -13,14 +13,14 @@ const sections = [
 ---
 
 <aside class="w-full">
-  <ul class="space-y-3.5 text-[19px] font-medium">
+  <ul class="space-y-3.5 text-title3 font-medium">
     {
       sections.map((s) => (
         <li>
           <a
             href={`#${s.id}`}
             data-section-link={s.id}
-            class={`transition-colors duration-150 ${
+            class={`transition-colors duration-200 ease-apple ${
               active === s.id
                 ? "text-hover"
                 : "text-soft hover:text-body"

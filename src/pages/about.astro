@@ -1,10 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import AboutSidebar from "../components/AboutSidebar.astro";
+import PageTabs from "../components/PageTabs.astro";
 
-const path = Astro.url.pathname;
-const isWork = path === "/" || path === "";
-const isAbout = path.startsWith("/about");
 ---
 
 <Layout title="about — tiya verma">
@@ -13,34 +11,19 @@ const isAbout = path.startsWith("/about");
       <!-- top banner: name, tagline, tabs -->
       <header>
         <h1
-          class="text-[44px] md:text-[56px] leading-[1.05] font-semibold tracking-tightish text-[#334155]"
+          class="text-hero-sm md:text-hero font-semibold"
         >
           tiya verma
         </h1>
         <p
-          class="mt-4 text-[20px] md:text-[22px] leading-[1.45] font-normal text-soft tracking-tightish"
+          class="mt-4 text-title3 md:text-title2 font-normal text-soft"
         >
           Product, design, &lt;dev&gt;,<br />& everything in between.
         </p>
 
-        <nav class="mt-8 flex items-center gap-1 text-[17px] font-medium">
-          <a
-            href="/"
-            class={`px-4 py-2 rounded-full transition-colors duration-150 ${
-              isWork ? "bg-[#eef0f3] text-ink" : "text-soft hover:text-body"
-            }`}
-          >
-            Work
-          </a>
-          <a
-            href="/about"
-            class={`px-4 py-2 rounded-full transition-colors duration-150 ${
-              isAbout ? "bg-[#eef0f3] text-ink" : "text-soft hover:text-body"
-            }`}
-          >
-            About
-          </a>
-        </nav>
+        <div class="mt-8">
+          <PageTabs />
+        </div>
       </header>
 
       <hr class="mt-6 border-t border-rule" />
@@ -73,19 +56,19 @@ const isAbout = path.startsWith("/about");
               <img
                 src="/food-pic.JPG"
                 alt=""
-                class="w-[88px] h-[72px] object-cover rounded-md shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)] -rotate-[6deg]"
+                class="w-[88px] h-[72px] object-cover rounded-lg shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)] -rotate-[6deg]"
                 onerror="this.style.background='linear-gradient(135deg,#bae6fd,#a5b4fc)';this.removeAttribute('src');"
               />
               <img
                 src="/youcode-pic.png"
                 alt=""
-                class="w-[88px] h-[72px] object-cover rounded-md shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)] rotate-[2deg] brightness-105 contrast-150 saturate-175"
+                class="w-[88px] h-[72px] object-cover rounded-lg shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)] rotate-[2deg] brightness-105 contrast-150 saturate-175"
                 onerror="this.style.background='linear-gradient(135deg,#fecdd3,#f9a8d4)';this.removeAttribute('src');"
               />
               <img
                 src="/bolt-event.png"
                 alt=""
-                class="w-[88px] h-[72px] object-cover rounded-md shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)] rotate-[6deg] brightness-110 contrast-150 saturate-200"
+                class="w-[88px] h-[72px] object-cover rounded-lg shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)] rotate-[6deg] brightness-110 contrast-150 saturate-200"
                 onerror="this.style.background='linear-gradient(135deg,#c4b5fd,#c084fc)';this.removeAttribute('src');"
               />
             </div>
@@ -96,14 +79,14 @@ const isAbout = path.startsWith("/about");
       <div class="max-w-2xl">
         <section id="hi" class="pt-2 pb-14 scroll-mt-20">
           <h2
-            class="text-[28px] md:text-[34px] font-semibold text-[#334155] tracking-tightish"
+            class="text-title1 md:text-large-title font-semibold"
           >
             Hi, I'm Tiya!
           </h2>
 
           <!-- meta line: location + education -->
           <div
-            class="mt-5 flex flex-wrap items-center gap-x-7 gap-y-2 text-[15.5px] text-soft"
+            class="mt-5 flex flex-wrap items-center gap-x-7 gap-y-2 text-subhead text-soft"
           >
             <div class="flex items-center gap-2">
               <svg
@@ -143,14 +126,14 @@ const isAbout = path.startsWith("/about");
             </div>
           </div>
 
-          <p class="mt-6 text-[17px] leading-[1.7] text-body">
+          <p class="mt-6 text-reading text-body">
             I love design, technology, &amp; the small moments where the two
             quietly come together to make something feel human.
           </p>
-          <p class="mt-4 text-[17px] leading-[1.7] text-body">
+          <p class="mt-4 text-reading text-body">
             I view myself as a creative thinker. I am drawn to design that highlights human experiences and feels purposeful. For me, there is joy in the constant pursuit of work that aligns who I am with what I create.
           </p>
-          <p class="mt-4 text-[17px] leading-[1.7] text-body">
+          <p class="mt-4 text-reading text-body">
             3 words to describe me: <em>quietly curious, always cooking</em>.
           </p>
         </section>
@@ -160,50 +143,50 @@ const isAbout = path.startsWith("/about");
           class="border-t border-rule pt-10 pb-14 scroll-mt-20"
         >
           <h2
-            class="text-[24px] md:text-[26px] font-semibold text-[#334155] tracking-tightish"
+            class="text-title2 md:text-title1 font-semibold"
           >
             Experience
           </h2>
           <ol class="mt-6 space-y-6">
             <li class="flex items-baseline justify-between gap-6">
               <div>
-                <div class="text-[16px] font-medium text-ink">
-                  Product FrontEnd Developer · 
-                  <span class="text-muted font-normal">UBC MINT MOSS </span>
+                <div class="text-callout font-semibold text-heading">
+                  Product Frontend Developer ·
+                  <span class="text-muted font-normal">UBC MINT MOSS</span>
                 </div>
-                <p class="mt-1 text-[14.5px] text-soft max-w-lg">
+                <p class="mt-1 text-subhead text-soft max-w-lg">
                   Making brain signal processing feel less like a lab and more like a tool built for people.
                 </p>
               </div>
-              <span class="text-[13px] text-ghost tabular-nums shrink-0">
+              <span class="text-footnote text-ghost tabular-nums shrink-0">
                 2025 — now
               </span>
             </li>
             <li class="flex items-baseline justify-between gap-6">
               <div>
-                <div class="text-[16px] font-medium text-ink">
-                   Marketing Coordinator ·
+                <div class="text-callout font-semibold text-heading">
+                  Marketing Coordinator ·
                   <span class="text-muted font-normal">youCode</span>
                 </div>
-                <p class="mt-1 text-[14.5px] text-soft max-w-lg">
+                <p class="mt-1 text-subhead text-soft max-w-lg">
                   Led the engagement and storytelling behind one of UBC's most community-driven hackathons.
                 </p>
               </div>
-              <span class="text-[13px] text-ghost tabular-nums shrink-0">
+              <span class="text-footnote text-ghost tabular-nums shrink-0">
                 2026
               </span>
             </li>
             <li class="flex items-baseline justify-between gap-6">
               <div>
-                <div class="text-[16px] font-medium text-ink">
-                  FrontEnd Web Developer ·
+                <div class="text-callout font-semibold text-heading">
+                  Frontend Web Developer ·
                   <span class="text-muted font-normal">Nomadly</span>
                 </div>
-                <p class="mt-1 text-[14.5px] text-soft max-w-lg">
+                <p class="mt-1 text-subhead text-soft max-w-lg">
                   Brought wanderlust to the browser, one interactive destination at a time.
                 </p>
               </div>
-              <span class="text-[13px] text-ghost tabular-nums shrink-0">
+              <span class="text-footnote text-ghost tabular-nums shrink-0">
                 2025
               </span>
             </li>
@@ -215,14 +198,14 @@ const isAbout = path.startsWith("/about");
           class="border-t border-rule pt-10 pb-14 scroll-mt-20"
         >
           <h2
-            class="text-[24px] md:text-[26px] font-semibold text-[#334155] tracking-tightish"
+            class="text-title2 md:text-title1 font-semibold"
           >
             Community
           </h2>
-          <ul class="mt-6 space-y-5 text-[15.5px] text-body">
+          <ul class="mt-6 space-y-5 text-subhead text-body">
             <li class="flex items-center gap-5">
               <div
-                class="shrink-0 w-14 h-14 rounded-full bg-[#eef0f3] flex items-center justify-center overflow-hidden"
+                class="shrink-0 w-14 h-14 rounded-full bg-fill flex items-center justify-center overflow-hidden"
               >
                 <img
                   src="/logo-mint.png"
@@ -232,15 +215,15 @@ const isAbout = path.startsWith("/about");
                 />
               </div>
               <div class="flex-1 min-w-0">
-                <div class="text-[17px] font-medium text-ink">UBC MINT</div>
-                <div class="text-[14.5px] text-soft">
+                <div class="text-reading font-semibold text-heading">UBC MINT</div>
+                <div class="text-subhead text-soft">
                   SWE Product Front-End Developer
                 </div>
               </div>
             </li>
             <li class="flex items-center gap-5">
               <div
-                class="shrink-0 w-14 h-14 rounded-full bg-[#eef0f3] flex items-center justify-center overflow-hidden"
+                class="shrink-0 w-14 h-14 rounded-full bg-fill flex items-center justify-center overflow-hidden"
               >
                 <img
                   src="/logo-wics.jpg"
@@ -250,10 +233,10 @@ const isAbout = path.startsWith("/about");
                 />
               </div>
               <div class="flex-1 min-w-0">
-                <div class="text-[17px] font-medium text-ink">
+                <div class="text-reading font-semibold text-heading">
                   UBC Women in CS
                 </div>
-                <div class="text-[14.5px] text-soft">
+                <div class="text-subhead text-soft">
                   youCode Marketing and Engagement Coordinator
                 </div>
               </div>

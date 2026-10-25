@@ -31,8 +31,35 @@
   }
   body {
     @apply text-body font-sans antialiased;
-    letter-spacing: 0.005em;
     background: transparent;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "kern", "liga", "calt";
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-heading;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid theme("colors.hover");
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
   }
   ::selection {
     background: #10b981;
@@ -58,5 +85,13 @@
   }
   .pop-hover {
     @apply transition-colors duration-200 hover:text-hover;
+  }
+  /* section eyebrow used across project + about pages */
+  .eyebrow {
+    @apply text-subhead font-medium text-soft lowercase;
+  }
+  /* frosted chip, like Apple's thin material */
+  .chip {
+    @apply rounded-full bg-white/75 px-3 py-1 text-footnote text-muted backdrop-blur-md ring-1 ring-black/5;
   }
 }

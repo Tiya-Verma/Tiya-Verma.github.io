@@ -16,9 +16,9 @@ const { project } = Astro.props;
       <div class="max-w-6xl mx-auto">
         <a
           href="/"
-          class="inline-flex items-center text-[14px] text-soft hover:text-ink transition-colors"
+          class="inline-flex items-center gap-1 text-subhead text-soft hover:text-hover transition-colors duration-200 ease-apple"
         >
-          work
+          <span aria-hidden="true">‹</span> work
         </a>
       </div>
     </div>
@@ -27,7 +27,7 @@ const { project } = Astro.props;
     <section class="px-6 md:px-12 mt-6 md:mt-8">
       <div class="max-w-6xl mx-auto">
         <div
-          class="relative w-full aspect-[16/9] md:aspect-[16/8] rounded-xl overflow-hidden"
+          class="relative w-full aspect-[16/9] md:aspect-[16/8] rounded-3xl overflow-hidden"
           style={project.heroVideo
             ? "background:#f5f5f7"
             : `background:${project.bg}`}
@@ -79,7 +79,7 @@ const { project } = Astro.props;
     <section class="px-6 md:px-12 mt-10 md:mt-14">
       <div class="max-w-6xl mx-auto">
         <h1
-          class="text-[40px] md:text-[56px] leading-[1.05] font-semibold tracking-tightish text-[#1f2937]"
+          class="text-hero-sm md:text-hero font-semibold"
         >
           {project.company}
         </h1>
@@ -88,20 +88,20 @@ const { project } = Astro.props;
           class="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-10 max-w-4xl"
         >
           <div>
-            <div class="text-[14px] text-soft lowercase">role</div>
-            <div class="mt-2 text-[15.5px] text-body">{project.role}</div>
+            <div class="eyebrow">role</div>
+            <div class="mt-2 text-subhead text-body">{project.role}</div>
           </div>
           <div>
-            <div class="text-[14px] text-soft lowercase">team</div>
-            <div class="mt-2 text-[15.5px] text-body">{project.team}</div>
+            <div class="eyebrow">team</div>
+            <div class="mt-2 text-subhead text-body">{project.team}</div>
           </div>
           <div>
-            <div class="text-[14px] text-soft lowercase">timeline</div>
-            <div class="mt-2 text-[15.5px] text-body">{project.timeline}</div>
+            <div class="eyebrow">timeline</div>
+            <div class="mt-2 text-subhead text-body">{project.timeline}</div>
           </div>
           <div>
-            <div class="text-[14px] text-soft lowercase">skills</div>
-            <div class="mt-2 text-[15.5px] text-body">
+            <div class="eyebrow">skills</div>
+            <div class="mt-2 text-subhead text-body">
               {project.skills.join(", ")}
             </div>
           </div>
@@ -112,14 +112,14 @@ const { project } = Astro.props;
     <!-- overview -->
     <section class="px-6 md:px-12 mt-20 md:mt-28">
       <div class="max-w-6xl mx-auto">
-        <div class="text-[14px] text-soft lowercase">overview</div>
+        <div class="eyebrow">overview</div>
         <h2
-          class="mt-3 text-[22px] md:text-[26px] leading-[1.35] text-[#1f2937] tracking-tightish max-w-5xl"
+          class="mt-3 text-title2 md:text-title1 font-normal max-w-5xl"
         >
           {project.tagline}
         </h2>
         <div
-          class="mt-8 space-y-5 text-[16.5px] md:text-[17px] leading-[1.7] text-body"
+          class="mt-8 space-y-5 text-callout md:text-reading text-body"
         >
           {project.overview.map((p) => <p>{p}</p>)}
         </div>
@@ -129,9 +129,9 @@ const { project } = Astro.props;
     <!-- problem -->
     <section class="px-6 md:px-12 mt-20 md:mt-24">
       <div class="max-w-6xl mx-auto">
-        <div class="text-[14px] text-soft lowercase">problem</div>
+        <div class="eyebrow">problem</div>
         <ol
-          class="mt-6 space-y-4 text-[16.5px] md:text-[17px] leading-[1.7] text-body list-decimal pl-5 marker:text-ghost marker:font-medium"
+          class="mt-6 space-y-4 text-callout md:text-reading text-body list-decimal pl-5 marker:text-ghost marker:font-medium"
         >
           {project.problem.map((p) => <li>{p}</li>)}
         </ol>
@@ -145,9 +145,9 @@ const { project } = Astro.props;
           {project.sections.map((s) => (
             <section class="px-6 md:px-12 mt-20 md:mt-24">
               <div class="max-w-6xl mx-auto">
-                <div class="text-[14px] text-soft lowercase">{s.label}</div>
+                <div class="eyebrow">{s.label}</div>
                 {s.intro && s.intro.length > 0 && (
-                  <div class="mt-6 space-y-5 text-[16.5px] md:text-[17px] leading-[1.7] text-body">
+                  <div class="mt-6 space-y-5 text-callout md:text-reading text-body">
                     {s.intro.map((p) => (
                       <p>{p}</p>
                     ))}
@@ -157,10 +157,10 @@ const { project } = Astro.props;
                   <div class="mt-8 space-y-10">
                     {s.items.map((item) => (
                       <div>
-                        <h3 class="text-[19px] md:text-[20px] font-medium text-[#1f2937]">
+                        <h3 class="text-title3 font-semibold">
                           {item.heading}
                         </h3>
-                        <p class="mt-3 text-[16.5px] md:text-[17px] leading-[1.7] text-body">
+                        <p class="mt-3 text-callout md:text-reading text-body">
                           {item.body}
                         </p>
                       </div>
@@ -177,15 +177,15 @@ const { project } = Astro.props;
     <!-- reflections -->
     <section class="px-6 md:px-12 mt-20 md:mt-24 pb-20 md:pb-28">
       <div class="max-w-6xl mx-auto">
-        <div class="text-[14px] text-soft lowercase">reflections</div>
+        <div class="eyebrow">reflections</div>
         <div class="mt-6 space-y-10">
           {
             project.reflections.map((r) => (
               <div>
-                <h3 class="text-[19px] md:text-[20px] font-medium text-[#1f2937]">
+                <h3 class="text-title3 font-semibold">
                   {r.heading}
                 </h3>
-                <p class="mt-3 text-[16.5px] md:text-[17px] leading-[1.7] text-body">
+                <p class="mt-3 text-callout md:text-reading text-body">
                   {r.body}
                 </p>
               </div>

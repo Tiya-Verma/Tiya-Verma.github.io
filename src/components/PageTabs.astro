@@ -4,12 +4,12 @@ const isWork = path === "/" || path === "";
 const isAbout = path.startsWith("/about");
 
 const tab = (active: boolean) =>
-  `px-4 py-2 rounded-full transition-colors duration-150 ${
-    active ? "bg-[#eef0f3] text-ink" : "text-soft hover:text-body"
+  `px-4 py-2 rounded-full transition-colors duration-200 ease-apple ${
+    active ? "bg-fill text-heading" : "text-soft hover:text-body"
   }`;
 ---
 
-<nav class="flex items-center gap-1 text-[17px] font-medium">
+<nav class="flex items-center gap-1 text-reading font-medium">
   <a href="/" class={tab(isWork)}>Work</a>
   <a href="/about" class={tab(isAbout)}>About</a>
 </nav>
