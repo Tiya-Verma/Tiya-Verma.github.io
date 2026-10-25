@@ -100,6 +100,12 @@
   .bulleted {
     @apply list-disc space-y-2 pl-5 marker:text-ghost;
   }
+  .inline-code {
+    @apply rounded-md bg-fill px-1.5 py-0.5 font-mono text-[0.875em] text-heading;
+  }
+  .code-block {
+    @apply overflow-x-auto rounded-2xl bg-fill p-5 font-mono text-footnote leading-relaxed text-body;
+  }
   /* frosted chip, like Apple's thin material */
   .chip {
     @apply rounded-full bg-white/75 px-3 py-1 text-footnote text-muted backdrop-blur-md ring-1 ring-black/5;

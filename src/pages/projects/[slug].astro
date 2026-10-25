@@ -18,8 +18,16 @@ const frameWidth = isPhone ? "max-w-3xl" : "max-w-[960px]";
 const frameAspect = isPhone
   ? "aspect-[4/3]"
   : isDesktop
-    ? "aspect-video"
+    ? project.heroAspect
+      ? ""
+      : "aspect-video"
     : "aspect-[16/9] md:aspect-[16/8]";
+const frameStyle = [
+  project.heroVideo ? "background:#f5f5f7" : `background:${project.bg}`,
+  isDesktop && project.heroAspect ? `aspect-ratio:${project.heroAspect}` : "",
+]
+  .filter(Boolean)
+  .join(";");
 
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
@@ -29,7 +37,8 @@ const rich = (t: string) =>
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-heading">$1</strong>');
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-heading">$1</strong>')
+    .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
 
 const info = (
   project.info ?? [
@@ -72,9 +81,7 @@ const info = (
       <div class={`${frameWidth} mx-auto`}>
         <div
           class={`relative w-full ${frameAspect} rounded-3xl overflow-hidden shadow-[2px_4px_12px_rgba(0,0,0,0.08)]`}
-          style={project.heroVideo
-            ? "background:#f5f5f7"
-            : `background:${project.bg}`}
+          style={frameStyle}
         >
           {
             project.heroVideo ? (
@@ -130,7 +137,18 @@ const info = (
                   <div>
                     <dt class="text-caption font-medium text-soft">{i.label}</dt>
                     <dd class="mt-0.5 text-reading font-semibold text-heading">
-                      {i.value}
+                      {i.href ? (
+                        <a
+                          href={i.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="hover:text-hover transition-colors duration-200 ease-apple"
+                        >
+                          {i.value} ↗
+                        </a>
+                      ) : (
+                        i.value
+                      )}
                     </dd>
                   </div>
                 ))
@@ -173,11 +191,14 @@ const info = (
                         ))}
                       </div>
                     )}
+                    {s.code && (
+                      <pre class:list={["code-block", s.intro?.length && "mt-5"]}><code>{s.code}</code></pre>
+                    )}
                     {s.items && s.items.length > 0 && (
                       <List
                         class:list={[
                           s.list === "bullets" ? "bulleted" : "numbered",
-                          s.intro?.length && "mt-6",
+                          (s.intro?.length || s.code) && "mt-6",
                         ]}
                       >
                         {s.items.map((item) =>
@@ -219,6 +240,20 @@ const info = (
                           )
                         )}
                       </List>
+                    )}
+                    {s.points && s.points.length > 0 && (
+                      <ul class:list={["bulleted", (s.intro?.length || s.items?.length) && "mt-4"]}>
+                        {s.points.map((pt) => (
+                          <li set:html={rich(pt)} />
+                        ))}
+                      </ul>
+                    )}
+                    {s.outro && s.outro.length > 0 && (
+                      <div class="mt-5 space-y-5">
+                        {s.outro.map((p) => (
+                          <p set:html={rich(p)} />
+                        ))}
+                      </div>
                     )}
                     {s.figure && (
                       <figure class="mt-8">

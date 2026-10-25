@@ -80,6 +80,18 @@ const moodprintArt = `
   </svg>
 `;
 
+const qbitGoArt = `
+  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#2f6b5e" stroke-width="2" opacity="0.35">
+      <path d="M24 30h72M24 50h72M24 70h72M24 90h72M30 24v72M50 24v72M70 24v72M90 24v72"/>
+    </g>
+    <circle cx="50" cy="50" r="9" fill="#1f3d36"/>
+    <circle cx="70" cy="70" r="9" fill="#ffffff" stroke="#1f3d36" stroke-width="2"/>
+    <circle cx="70" cy="50" r="9" fill="#1f3d36" opacity="0.45"/>
+    <circle cx="70" cy="50" r="9" stroke="#1f3d36" stroke-width="2"/>
+  </svg>
+`;
+
 // text fields accept **bold** markup
 export interface ProjectSection {
   label?: string;
@@ -89,6 +101,12 @@ export interface ProjectSection {
   list?: "numbered" | "bullets";
   /** run the bold heading into the body instead of on its own line */
   inline?: boolean;
+  /** plain bullet list, after items */
+  points?: string[];
+  /** paragraphs after the lists */
+  outro?: string[];
+  /** preformatted block, e.g. a file tree */
+  code?: string;
   /** image shown after the section; without src it renders as a placeholder */
   figure?: { src?: string; alt: string };
 }
@@ -111,8 +129,10 @@ export interface Project {
   reflections: { heading: string; body: string }[];
   heroVideo?: string;
   heroVideoFormat?: "phone" | "desktop";
+  /** frame shape for a desktop demo, e.g. "4 / 3"; the video fills it, cropped from the centre */
+  heroAspect?: string;
   /** overrides the default Role / Team / Timeline / Skills info blocks */
-  info?: { label: string; value: string }[];
+  info?: { label: string; value: string; href?: string }[];
 }
 
 export const projects: Project[] = [
@@ -561,6 +581,7 @@ export const projects: Project[] = [
     ],
   },
   // placeholders: details to come
+  /* previous AI Code Reviewer placeholder
   {
     slug: "ai-codereviewer",
     company: "AI Code Reviewer",
@@ -577,6 +598,172 @@ export const projects: Project[] = [
     problem: [],
     reflections: [],
   },
+  */
+  {
+    slug: "ai-codereviewer",
+    company: "AI Security Reviewer",
+    year: "2026",
+    bg: "linear-gradient(140deg, #eef1fb 0%, #f3f4fb 50%, #f8f8fc 100%)",
+    inner: codeReviewerArt,
+    title: "AI Security Reviewer",
+    tagline: "Benchmarked AI security review for code changes",
+    role: "Developer",
+    team: "",
+    timeline: "2026",
+    skills: [],
+    info: [
+      { label: "Type", value: "Personal Project" },
+      { label: "Role", value: "Developer" },
+      { label: "Year", value: "2026" },
+      {
+        label: "Link",
+        value: "GitHub",
+        href: "https://github.com/Tiya-Verma/ai-security-codereviewer",
+      },
+    ],
+    overview: [
+      "An AI security reviewer that gives Claude semantic understanding of a code change, not just pattern matching.",
+    ],
+    problem: [],
+    sections: [
+      {
+        intro: [
+          "Instead of claiming \"AI finds bugs,\" it is built around a generator/verifier detection pipeline measured against a public, labeled benchmark, so there is a reproducible number for how often it is right.",
+        ],
+      },
+      {
+        label: "Features",
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "Generator/Verifier Pipeline:",
+            body: "A high-recall generator proposes candidate findings, then an adversarial verifier assumes each one is a false positive and tries to prove the code is safe",
+          },
+          {
+            heading: "Benchmark Harness:",
+            body: "Compares generator-only against generator+verifier side by side, reporting precision, recall, F1 and false positives per PR",
+          },
+          {
+            heading: "Structured Output:",
+            body: "All model responses are forced through `tool_use` schemas, with no free-text parsing",
+          },
+          {
+            heading: "In-Repo Configuration:",
+            body: "A `.security-review.yml` file supports custom scan instructions, false-positive guidance, ignore globs, a severity threshold, inline suppression markers, a baseline allowlist, and a verifier on/off toggle",
+          },
+          {
+            heading: "Per-Stage Model Selection:",
+            body: "Claude Sonnet for the generator and Claude Opus for the verifier, so the more expensive model is only used where precision matters",
+          },
+          {
+            heading: "CLI:",
+            body: "`secreview scan <diff>` runs the engine on any unified diff",
+          },
+        ],
+      },
+      {
+        label: "Architecture",
+        intro: [
+          "The pipeline is a four-stage flow: `diff → generate → verify → route by confidence`.",
+        ],
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "Generator:",
+            body: "Favors recall and is allowed to over-report",
+          },
+          {
+            heading: "Verifier:",
+            body: "Does the opposite, challenging every finding before it is surfaced",
+          },
+          {
+            heading: "Confidence routing:",
+            body: "High-confidence findings become inline PR comments; low-confidence ones are collapsed into a summary to cut noise",
+          },
+          {
+            heading: "Benchmark-first build order:",
+            body: "The labeled corpus is built before the Action, so it doubles as the prompt-iteration test harness",
+          },
+        ],
+        outro: [
+          "The design targets four failure modes seen in similar tools: false positives on intentional design patterns, missed business-logic flaws, overconfidence from incomplete context, and comment noise.",
+        ],
+      },
+      {
+        label: "Technical Stack",
+        list: "bullets",
+        inline: true,
+        items: [
+          { heading: "Language:", body: "Python" },
+          {
+            heading: "LLM:",
+            body: "Anthropic API (Claude Sonnet generator, Claude Opus verifier, configurable)",
+          },
+          { heading: "Config & Models:", body: "YAML validated with Pydantic" },
+          { heading: "Diff Parsing:", body: "Language-agnostic unified-diff parser" },
+          {
+            heading: "Testing:",
+            body: "pytest (LLM-free unit tests, no API key needed)",
+          },
+          { heading: "Planned:", body: "GitHub Action packaging (milestone M5)" },
+        ],
+      },
+      {
+        label: "Project Structure",
+        code: `src/secreview/
+├── models.py        # Finding / Verdict / Severity / Confidence
+├── config.py        # .security-review.yml schema (pydantic)
+├── diff.py          # unified-diff parsing
+├── llm.py           # Anthropic client, tool_use structured output
+├── engine/          # generator, verifier, pipeline
+└── cli.py           # secreview scan <diff>
+benchmark/
+├── run_benchmark.py # gen-only vs gen+verify
+├── metrics.py       # precision / recall / F1 / FP-per-PR
+└── corpus/          # labeled samples + manifest
+tests/               # config, diff, metrics`,
+      },
+      {
+        label: "Benchmark Design",
+        intro: ["The corpus mixes four sources so no single one skews the results:"],
+        points: [
+          "OWASP Benchmark cases",
+          "Real CVE-fix commit pairs",
+          "Synthetic vulnerabilities injected into clean PRs",
+          "Deliberate false-positive traps (safe code that looks risky)",
+        ],
+        outro: [
+          "The target for v1 is 100–300 labeled samples across 2–3 languages. What counts as a \"hit\" is defined before the first evaluation run, so the goalposts can't move after seeing results.",
+        ],
+      },
+      /* Testing — removed for now
+      {
+        label: "Testing",
+        intro: [
+          "Unit tests cover config validation, diff parsing and metric calculations, and they run without an API key.",
+        ],
+      },
+      */
+      {
+        label: "Scope & Caveats",
+        intro: [
+          "This is not a replacement for manual review, is not hardened against prompt injection (restrict it to trusted PRs), and does not generate exploits.",
+        ],
+      },
+      /* Status — removed for now
+      {
+        label: "Status",
+        intro: [
+          "v0.1.0. The engine and benchmark harness are scaffolded, and the prompts and corpus are being built out.",
+        ],
+      },
+      */
+    ],
+    reflections: [],
+  },
+  /* previous Moodprint placeholder
   {
     slug: "moodprint",
     company: "Moodprint",
@@ -591,6 +778,368 @@ export const projects: Project[] = [
     skills: [],
     overview: ["Details coming soon."],
     problem: [],
+    reflections: [],
+  },
+  */
+  {
+    slug: "moodprint",
+    company: "MoodPrint",
+    year: "2026",
+    bg: "linear-gradient(140deg, #fbeff4 0%, #fbf3f6 50%, #fcf8fa 100%)",
+    inner: moodprintArt,
+    title: "MoodPrint",
+    tagline: "A personal Pinterest taste engine",
+    role: "Developer",
+    team: "",
+    timeline: "2026",
+    skills: [],
+    info: [
+      // { label: "Type", value: "Personal Project" },
+      { label: "Type", value: "Browser Extension" },
+      { label: "Role", value: "Developer" },
+      { label: "Year", value: "2026" },
+      // {
+      //   label: "Link",
+      //   value: "GitHub",
+      //   href: "https://github.com/Tiya-Verma/MoodPrint",
+      // },
+    ],
+    overview: ["A personal Pinterest taste engine."],
+    problem: [],
+    sections: [
+      {
+        intro: [
+          "A browser extension logs my own Pinterest activity (saves, searches, dwell time) to a local backend, which embeds the images with CLIP and turns them into two things: a taste-drift visualisation and auto-generated mood boards. It reads only the page I'm already logged into and only touches my own account's activity.",
+        ],
+      },
+      {
+        label: "Features",
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "Activity Capture:",
+            body: "A Manifest V3 Chrome extension records saves, searches, dwell time and scroll-past events, with a durable queue and at-least-once delivery",
+          },
+          {
+            heading: "CLIP Embeddings:",
+            body: "Pins and search queries are embedded into CLIP ViT-B/32's shared image/text space, so a text query and an image are directly comparable",
+          },
+          {
+            heading: "Taste Field:",
+            body: "One orb per pin, where position is a 2-D projection of the embedding, colour comes from the pin's own image, size is log-scaled dwell time, and ring/opacity separates saved from merely viewed",
+          },
+          {
+            heading: "Taste Drift:",
+            body: "Buckets the collection over time and scores each pin's novelty against everything strictly before it",
+          },
+          {
+            heading: "Mood Boards:",
+            body: "Clusters the collection and names each board zero-shot with CLIP against a 108-term aesthetic vocabulary",
+          },
+          {
+            heading: "Feed Ranking:",
+            body: "Scores pins the feed hasn't shown me yet against a taste profile, with an explore-vs-exploit toggle",
+          },
+          {
+            heading: "Board Export:",
+            body: "Pushes mood boards back to Pinterest as real boards through the official API, secret by default and nothing written without `--confirm`",
+          },
+        ],
+      },
+      {
+        label: "Architecture",
+        code: `content script ──(chrome.runtime message)──▶ service worker
+  pins.js: selectors                           queue in chrome.storage.local
+  content.js: MutationObserver                 ├─ survives navigation
+                                               └─ batched POST, retried
+                                                      │
+                                        POST /events  ▼
+                                               FastAPI ──▶ SQLite`,
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "The service worker owns the network:",
+            body: "Content scripts never POST, so requests aren't subject to CORS from pinterest.com and the queue outlives the content script",
+          },
+          {
+            heading: "At-least-once delivery, idempotent ingest:",
+            body: "Every event carries a `client_event_id` and the backend skips ids it already holds, including duplicates inside one batch",
+          },
+          {
+            heading: "Derived data is rebuildable:",
+            body: "Embeddings, clusters, boards, drift and the ranking profile are all regenerated from the event log, so the log is the only thing backed up (SQLite online backup API, integrity-checked before any old snapshot is pruned)",
+          },
+        ],
+      },
+      {
+        label: "Key Decisions",
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "Weak signals produce no event:",
+            body: "Time between 300ms and 1500ms on a pin records nothing, because a guessed intent is worse than no record",
+          },
+          {
+            heading: "Novelty looks at the past only:",
+            body: "Scoring against the whole collection would measure how typical a pin is, a different and easier question. A test asserts a pin's score is unchanged when later pins are added",
+          },
+          {
+            heading: "Clusters must earn their board:",
+            body: "A group must beat the collection's own baseline similarity by a fixed margin and hold at least 5 pins. In testing, 8 groups holding 81 pins were rejected rather than padded into boards",
+          },
+          {
+            heading: "Hubness correction for naming:",
+            body: "Scoring boards independently named all three \"album cover artwork\", so each term's average similarity to the collection is subtracted first and naming is treated as an assignment problem so no two boards share a name",
+          },
+          {
+            heading: "Export saves the original pins:",
+            body: "It uses the Pinterest save endpoint rather than uploading copies, so attribution, links and full resolution stay intact",
+          },
+        ],
+      },
+      /* Measured Results — removed for now
+      {
+        label: "Measured Results",
+        intro: ["The project reports its own limits rather than hiding them:"],
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "Ranking is not yet useful:",
+            body: "Leave-one-out evaluation against pins I flicked past gives an AUC of 0.49 on 140 pins and 21 negatives, effectively a coin flip. The extension therefore annotates the feed with badges by default and only reorders it once the score clears about 0.55",
+          },
+          {
+            heading: "Drift is gated on data:",
+            body: "It needs at least 3 weekly buckets and currently has 1, so the page shows that message instead of a trajectory. The pipeline was validated on a synthetic five-week collection that genuinely drifts, where novelty climbed from 0.057 to 0.384",
+          },
+          {
+            heading: "Mood boards:",
+            body: "k-means (k=11) was chosen after HDBSCAN found no usable density in raw 512-dim space, producing 3 boards that cover 59 of 140 pins",
+          },
+          {
+            heading: "Not yet run live:",
+            body: "The feed reorder and Pinterest export paths are covered by tests (including 25 export tests against a mock transport) but haven't been run against a real Pinterest account",
+          },
+        ],
+      },
+      */
+      {
+        label: "Technical Stack",
+        list: "bullets",
+        inline: true,
+        items: [
+          { heading: "Extension:", body: "JavaScript, Chrome Manifest V3" },
+          { heading: "Backend:", body: "Python, FastAPI, SQLAlchemy, SQLite" },
+          {
+            heading: "ML:",
+            body: "CLIP ViT-B/32 (PyTorch, Hugging Face Transformers), UMAP, scikit-learn (k-means, HDBSCAN), NumPy",
+          },
+          {
+            heading: "Dashboard:",
+            body: "Static HTML pages (orb field, drift view, mood boards, raw event log)",
+          },
+          { heading: "Integration:", body: "Pinterest API v5 with OAuth" },
+          {
+            heading: "Testing:",
+            body: "pytest for the backend, `node --test` for the extension",
+          },
+        ],
+      },
+      {
+        label: "Project Structure",
+        code: `extension/   Manifest V3 extension: pin detection + durable event queue
+backend/     FastAPI ingest API + SQLite store + embedding/drift pipelines
+dashboard/   Static pages: the orb field, the drift view, the raw event log`,
+      },
+      /* Status — removed for now (matches the AI Security Reviewer page)
+      {
+        label: "Status",
+        intro: [
+          "Phase 5. Capture, embeddings, the taste field, drift, mood boards, ranking and board export are built. Cross-device sync is not built.",
+        ],
+      },
+      */
+    ],
+    reflections: [],
+  },
+  /* previous qBit-Go placeholder
+  // placeholder: details to come
+  {
+    slug: "qbit-go",
+    company: "qBit-Go",
+    year: "",
+    bg: "linear-gradient(140deg, #ecf6f2 0%, #f2f8f5 50%, #f8fbf9 100%)",
+    inner: qbitGoArt,
+    title: "qBit-Go",
+    tagline: "Details coming soon",
+    role: "TBD",
+    team: "TBD",
+    timeline: "TBD",
+    skills: [],
+    overview: ["Details coming soon."],
+    problem: [],
+    reflections: [],
+  },
+  */
+  {
+    slug: "qbit-go",
+    company: "qBit-Go",
+    year: "2026",
+    bg: "linear-gradient(140deg, #ecf6f2 0%, #f2f8f5 50%, #f8fbf9 100%)",
+    inner: qbitGoArt,
+    heroVideo: "/qBit-Go%20Web%20UI.mov",
+    heroVideoFormat: "desktop",
+    // heroAspect: "2934 / 1760", // full recording, no crop
+    heroAspect: "4 / 3", // trims the empty browser margins either side of the app
+    title: "qBit-Go",
+    tagline: "A BitTorrent client built from scratch in Go",
+    role: "Developer & Designer",
+    team: "",
+    timeline: "2026",
+    skills: [],
+    info: [
+      { label: "Type", value: "Web App & Systems" },
+      { label: "Role", value: "Developer & Designer" },
+      { label: "Year", value: "2026" },
+    ],
+    overview: [
+      "A BitTorrent client built from scratch in Go, with a live React dashboard embedded in a single binary.",
+    ],
+    problem: [],
+    sections: [
+      {
+        label: "Features",
+        points: [
+          "Download from `.torrent` files or magnet links",
+          "Find peers through HTTP and UDP trackers, a Kademlia DHT, and peer exchange",
+          "Download from many peers at once, with 16 KiB block requests pipelined five deep",
+          "Verify every piece with SHA-1 before it touches disk",
+          "Seed back to the swarm with tit-for-tat choking",
+          "Resume where you left off after a restart",
+          "Watch speed, progress, peers and time remaining update live, every second",
+        ],
+      },
+      {
+        label: "Architecture",
+        intro: [
+          "Each torrent runs as its own state machine, built from Go goroutines and channels, with clear separation between the network, scheduling and storage layers:",
+        ],
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "Engine:",
+            body: "registry of active torrents; routes add, pause, resume and remove from the API",
+          },
+          {
+            heading: "Tracker client:",
+            body: "announces on start, at the tracker's interval, and on stop, with exponential backoff on failure",
+          },
+          {
+            heading: "Peer manager:",
+            body: "one goroutine per peer pulls pieces from a shared work queue; a dropped peer's piece goes straight back for another peer to take",
+          },
+          {
+            heading: "Storage:",
+            body: "a single writer goroutine checks each piece's SHA-1 and maps it across file boundaries",
+          },
+          {
+            heading: "API server:",
+            body: "REST and WebSocket endpoints, plus the React UI compiled into the binary with `go:embed`",
+          },
+        ],
+      },
+      {
+        label: "Technical Stack",
+        points: [
+          "Go 1.26, built on the standard library's TCP, UDP, SHA-1 and HTTP packages",
+          "chi router and gorilla/websocket for the API",
+          "bbolt embedded key-value store for saved state",
+          "React 18 + Vite",
+          "Tailwind CSS with design tokens from Apple's Human Interface Guidelines",
+          "Docker multi-stage build + Docker Compose",
+        ],
+      },
+      {
+        label: "Project Structure",
+        code: `qBit-Go/
+├── internal/
+│   ├── engine/      # Torrent registry, saved state
+│   ├── torrent/     # .torrent parsing, info hash
+│   ├── peer/        # Handshake, wire protocol, peer pool
+│   ├── tracker/     # HTTP + UDP trackers
+│   ├── dht/         # Kademlia DHT node
+│   ├── scheduler/   # Piece work queue
+│   ├── storage/     # SHA-1 check, file I/O
+│   ├── bencode/     # .torrent encoding
+│   ├── magnet/      # Magnet link parsing
+│   └── api/         # REST, WebSocket, embedded UI
+└── web/
+    └── src/
+        ├── App.jsx           # State + live connection
+        ├── api.js            # API client
+        ├── lib/format.js     # Size, speed, time formatting
+        └── components/       # UI components`,
+      },
+      {
+        label: "API Integration",
+        intro: [
+          "The UI talks to the Go server over a REST API under `/api/v1` for actions: add, pause, resume and remove. On load it fetches the current state once, then opens a WebSocket that pushes a full update every second. If the connection drops, it reconnects automatically with exponential backoff (capped at 15 seconds) and shows the connection status. Errors come back in one consistent JSON shape and appear in the UI as readable messages.",
+        ],
+      },
+      {
+        label: "Key Components",
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "SummaryCard:",
+            body: "tiles for total download speed, upload speed, connected peers and active torrents",
+          },
+          {
+            heading: "TorrentRow:",
+            body: "name, status, progress bar and plain-language time left (\"About 8 minutes remaining\"); shows an indeterminate bar while a magnet link's metadata loads",
+          },
+          {
+            heading: "AddModal:",
+            body: "add a torrent by file upload or magnet link, in one sheet with two tabs",
+          },
+          {
+            heading: "Alert:",
+            body: "confirms removal and asks whether to keep the downloaded files",
+          },
+          {
+            heading: "StatsBar:",
+            body: "footer with live connection status",
+          },
+        ],
+      },
+      /* Testing + Requirements — removed for now (matches the other project pages)
+      {
+        label: "Testing",
+        intro: ["Table-driven unit tests are provided for:"],
+        points: [
+          "Bencode encoding and info-hash extraction",
+          "Peer message encoding and the work queue",
+          "Tracker response parsing",
+          "Magnet links, bitfields and piece selection",
+          "DHT routing",
+          "Saved state and list ordering",
+        ],
+      },
+      {
+        label: "Requirements",
+        points: [
+          "Go 1.26 or later",
+          "Node.js 18 or later, to build the UI",
+          "Or Docker with Compose",
+        ],
+      },
+      */
+    ],
     reflections: [],
   },
 ];
