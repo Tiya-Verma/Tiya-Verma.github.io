@@ -4,6 +4,24 @@ import PageTabs from "../components/PageTabs.astro";
 import WorkCard from "../components/WorkCard.astro";
 import { projects } from "../data/projects";
 
+// display order; featured first, nomadly last, any new project before nomadly
+const order = [
+  "tier-evo",
+  "moss",
+  "procreate-3d",
+  "qbit-go",
+  "alice-in-wellnessland",
+  "ai-codereviewer",
+  "moodprint",
+];
+const rank = (slug: string) =>
+  slug === "nomadly-earth"
+    ? Infinity
+    : order.includes(slug)
+      ? order.indexOf(slug)
+      : order.length;
+const ordered = [...projects].sort((a, b) => rank(a.slug) - rank(b.slug));
+
 ---
 
 <Layout title="tiya verma — product designer">
@@ -34,7 +52,7 @@ import { projects } from "../data/projects";
       <section class="pt-10 lg:pt-14 pb-10">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
           {
-            projects.map((p) => (
+            ordered.map((p) => (
               <WorkCard
                 company={p.company}
                 year={p.year}

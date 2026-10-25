@@ -293,7 +293,10 @@ export const projects: Project[] = [
         intro: [
           // "A contextual parking layer for the Evo car-share app that tells drivers if a lot is open, which floor their car is on, and how to reach it, built with Next.js, TypeScript, Tailwind CSS, MapLibre GL & PostgreSQL/PostGIS.",
         ],
-        figure: { alt: "Car detail card with parking panel" },
+        figure: {
+          src: "/evo-car-detail.png",
+          alt: "Car detail card with parking panel",
+        },
       },
       {
         label: "Problem",
@@ -342,7 +345,11 @@ export const projects: Project[] = [
             body: "GPS pre-fills the floor, the driver confirms it and earns 5 minutes of free driving. This keeps the data current.",
           },
         ],
-        figure: { alt: "The four touchpoints across the booking flow" },
+        // figure: { alt: "The four touchpoints across the booking flow" },
+        figure: {
+          src: "/evo-community-report.png",
+          alt: "End-trip community report: confirm floor and lot status",
+        },
       },
       {
         label: "How it works",
@@ -396,6 +403,7 @@ export const projects: Project[] = [
     ],
     reflections: [],
   },
+  /* previous Procreate 3D case study — kept for reference
   {
     slug: "procreate-3d",
     company: "Procreate 3D",
@@ -441,6 +449,103 @@ export const projects: Project[] = [
         body: "The most useful design move so far was deciding what the app is not. Early concepts had it living on Apple Vision Pro for children's learning, or for architects sketching buildings. The install base, the precision required, and the time-to-magic killed both. Repositioning it as a tool that drops into Figma — Pencil-drawn doodles as 3D assets, narrowed the scope, made the primary distribution channel obvious, and turned Vision Pro from a market dependency into a future delight. The constraint of \"must fit inside someone's existing workflow\" did more design work than any wireframe.",
       },
     ],
+  },
+  */
+  {
+    slug: "procreate-3d",
+    company: "Procreate 3D",
+    year: "2026",
+    bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
+    inner: procreateArt,
+    title: "Procreate 3D",
+    tagline:
+      "3D assets designed to live inside a your workflow",
+    role: "Designer & iOS Developer",
+    team: "",
+    timeline: "2026",
+    skills: [],
+    info: [
+      { label: "Type", value: "iPadOS App" },
+      { label: "Role", value: "Designer & iOS Developer" },
+      { label: "Year", value: "2026" },
+      // {
+      //   label: "Link",
+      //   value: "GitHub",
+      //   href: "https://github.com/Tiya-Verma/procreate3D",
+      // },
+    ],
+    overview: [
+      "A small iPad app that takes a closed 2D drawing and inflates it into a soft, claymation-style 3D form. It's designed to live inside a designer's existing workflow, not replace it.",
+    ],
+    problem: [],
+    sections: [
+      {
+        figure: {
+          src: "/projects/procreate-3d/hero.png",
+          alt: "Procreate 3D hero",
+        },
+      },
+      {
+        label: "✏️ Drawing",
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "Apple Pencil-first.",
+            body: "You draw a closed shape and the depth comes from the drawing itself, so there's no 3D coordinate system to learn",
+          },
+          { heading: "Built with SwiftUI", body: "on iPadOS" },
+        ],
+      },
+      {
+        label: "🫧 Inflation Engine",
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "Runs fully on-device",
+            body: "with a real-time inflation algorithm on RealityKit",
+          },
+          {
+            heading: "Distance-to-boundary height.",
+            body: "Each interior point is raised according to how far it is from the edge of the shape",
+          },
+          {
+            heading: "Height cap.",
+            body: "Limiting the height to a fraction of the maximum turns a sharp ridge into a flat-topped, puffy pillow shape",
+          },
+        ],
+      },
+      {
+        label: "🎚️ Live Tuning",
+        list: "bullets",
+        inline: true,
+        items: [
+          {
+            heading: "Three live sliders",
+            body: "for surface smoothing, where the height plateaus, and how steep the dome is",
+          },
+        ],
+        points: [
+          "Tuning the output feels like choosing a brush, not configuring a tool",
+        ],
+      },
+      {
+        label: "📤 Workflow",
+        list: "bullets",
+        inline: true,
+        items: [
+          { heading: "Drop into Figma", body: "as a 3D asset" },
+          { heading: "Flat PNG render", body: "for anywhere else" },
+          { heading: "Next: Vision Pro", body: "spatial preview" },
+        ],
+        figure: {
+          src: "/projects/procreate-3d/result.png",
+          alt: "Procreate 3D result",
+        },
+      },
+    ],
+    reflections: [],
   },
   {
     slug: "alice-in-wellnessland",

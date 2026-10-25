@@ -1,5 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { projects } from "../../data/projects";
 
 export function getStaticPaths() {
@@ -30,6 +32,10 @@ const frameStyle = [
   .join(";");
 
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+// figures show a placeholder until their file lands in public/
+const hasFile = (src?: string) =>
+  !!src && existsSync(join(process.cwd(), "public", decodeURI(src)));
 
 // escape, then turn **text** into <strong>
 const rich = (t: string) =>
@@ -257,7 +263,7 @@ const info = (
                     )}
                     {s.figure && (
                       <figure class="mt-8">
-                        {s.figure.src ? (
+                        {hasFile(s.figure.src) ? (
                           <img
                             src={s.figure.src}
                             alt={s.figure.alt}
