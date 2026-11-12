@@ -8,25 +8,86 @@ import PageTabs from "../components/PageTabs.astro";
 <Layout title="about — tiya verma">
   <div class="px-6 md:px-12 pt-10 md:pt-16 pb-16 md:pb-24">
     <div class="max-w-7xl mx-auto">
-      <!-- top banner: name, tagline, tabs -->
-      <header>
+      <!-- top bar: page tabs, right-aligned -->
+      <div class="flex justify-end">
+        <PageTabs />
+      </div>
+
+      <!-- intro: centred hero -->
+      <header class="flex flex-col items-center text-center pt-16 md:pt-28">
         <h1
-          class="text-hero-sm md:text-hero font-semibold"
+          class="max-w-3xl text-[32px] md:text-[48px] leading-[1.16] tracking-[-0.03em] font-semibold"
         >
-          tiya verma
+          <span class="block">Hi, I’m Tiya!</span>
+          <span class="block text-soft">
+            I design moments that spark human connection.
+          </span>
         </h1>
+
+        <!-- education -->
         <p
-          class="mt-4 text-title3 md:text-title2 font-normal text-soft"
+          class="mt-12 md:mt-16 flex items-center gap-2.5 text-footnote md:text-subhead text-body"
         >
-          Product, design, &lt;dev&gt;,<br />& everything in between.
+          <img
+            src="/ubc-logo.jpg"
+            alt="UBC crest"
+            class="h-6 md:h-7 w-auto shrink-0"
+          />
+          <span>B.Sc. Computer Science @ UBC</span>
         </p>
 
-        <div class="mt-8">
-          <PageTabs />
-        </div>
+        <!-- socials: brand-coloured tiles, 24px glyphs inside 44pt hit targets -->
+        <ul class="mt-8 md:mt-10 flex items-center">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/tiyaverma/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              class="flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-200 ease-apple hover:scale-110"
+            >
+              <svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true">
+                <rect width="32" height="32" rx="5" fill="#0A66C2"></rect>
+                <path fill="#fff" d="M7.5 12.5h3.6V25H7.5zM9.3 6.8a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2zM13.4 12.5h3.4v1.7h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5V25h-3.58v-6.3c0-1.5-.03-3.43-2.09-3.43-2.09 0-2.41 1.63-2.41 3.32V25h-3.57z"></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/Tiya-Verma"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              class="flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-200 ease-apple hover:scale-110"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#181717" aria-hidden="true">
+                <path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57v-2c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .3"></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="mailto:tiyaverma2004@yahoo.in"
+              aria-label="Email"
+              class="flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-200 ease-apple hover:scale-110"
+            >
+              <svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true">
+                <defs>
+                  <linearGradient id="mail-tile" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#1E9BFF"></stop>
+                    <stop offset="1" stop-color="#0A6CFF"></stop>
+                  </linearGradient>
+                </defs>
+                <rect width="32" height="32" rx="7" fill="url(#mail-tile)"></rect>
+                <rect x="6.5" y="9.5" width="19" height="13" rx="2" fill="#fff"></rect>
+                <path d="m7.5 10.8 8.5 6.2 8.5-6.2" fill="none" stroke="#0A6CFF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
       </header>
 
-      <hr class="mt-6 border-t border-rule" />
+      <hr class="mt-16 md:mt-24 border-t border-rule" />
 
       <div
         class="mt-10 lg:mt-14 grid grid-cols-1 lg:grid-cols-[180px_400px_1fr] gap-10 lg:gap-14"
