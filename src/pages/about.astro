@@ -213,34 +213,23 @@ import ScrambleText from "../components/ScrambleText.astro";
           </ul>
         </section>
 
-        <!-- 3 words + photo strip (bottom right, wider) -->
+        <!-- my communities (bottom right, wider) -->
         <section class="rounded-3xl bg-[#f5f5f7] p-6 flex flex-col md:col-span-6">
-          <div class="flex items-center gap-3">
-            <img
-              src="/food-pic.JPG"
-              alt=""
-              class="h-16 w-20 rounded-xl object-cover -rotate-[4deg] shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)]"
-              onerror="this.style.background='linear-gradient(135deg,#bae6fd,#a5b4fc)';this.removeAttribute('src');"
-            />
-            <img
-              src="/youcode-pic.png"
-              alt=""
-              class="h-16 w-20 rounded-xl object-cover rotate-[2deg] brightness-105 contrast-150 saturate-175 shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)]"
-              onerror="this.style.background='linear-gradient(135deg,#fecdd3,#f9a8d4)';this.removeAttribute('src');"
-            />
-            <img
-              src="/bolt-event.png"
-              alt=""
-              class="h-16 w-20 rounded-xl object-cover rotate-[5deg] brightness-110 contrast-150 saturate-200 shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)]"
-              onerror="this.style.background='linear-gradient(135deg,#c4b5fd,#c084fc)';this.removeAttribute('src');"
-            />
-          </div>
-          <div class="mt-8 md:mt-auto md:pt-10">
+          <div class="mt-auto pt-20 md:pt-10">
             <p class="text-title3 font-semibold text-soft">
-              3 words to describe me…
+              my communities…
             </p>
-            <p class="text-[28px] md:text-[32px] leading-[1.15] tracking-[-0.03em] font-semibold">
-              quiet, curious, always cooking
+            <!-- names share one grid cell and take turns, so the line never shifts -->
+            <p
+              class="grid text-[28px] md:text-[32px] leading-[1.15] tracking-[-0.03em] font-semibold"
+              data-cycle
+            >
+              <span class="sr-only">UBC MINT, Women in CS, youCode</span>
+              {["UBC MINT", "Women in CS", "youCode"].map((name, i) => (
+                <span class="cycle-item col-start-1 row-start-1" data-active={i === 0 ? "" : undefined} aria-hidden="true">
+                  {name}
+                </span>
+              ))}
             </p>
           </div>
         </section>
@@ -248,3 +237,46 @@ import ScrambleText from "../components/ScrambleText.astro";
     </div>
   </div>
 </Layout>
+
+<style>
+  .cycle-item {
+    opacity: 0;
+    transform: translateY(0.4em);
+    transition:
+      opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+      transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .cycle-item[data-active] {
+    opacity: 1;
+    transform: none;
+  }
+  /* the outgoing name lifts away instead of dropping back */
+  .cycle-item[data-leaving] {
+    transform: translateY(-0.4em);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cycle-item,
+    .cycle-item[data-leaving] {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const HOLD = 2400; // ms each name stays up
+
+  document.querySelectorAll<HTMLElement>("[data-cycle]").forEach((root) => {
+    const items = [...root.querySelectorAll<HTMLElement>(".cycle-item")];
+    let i = 0;
+    setInterval(() => {
+      const prev = items[i];
+      i = (i + 1) % items.length;
+      const next = items[i];
+      prev.removeAttribute("data-active");
+      prev.dataset.leaving = "";
+      // reset the leaving name below the line once it has faded out
+      setTimeout(() => prev.removeAttribute("data-leaving"), 400);
+      next.dataset.active = "";
+    }, HOLD);
+  });
+</script>
