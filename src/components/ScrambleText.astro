@@ -80,6 +80,15 @@ const words = text.split(" ");
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // the decode intro plays once per visit; coming back to the page (e.g. from
+  // the work tab) shows the settled text, and only hover scrambles it
+  const PLAYED = "scramble-intro-played";
+  let introPlayed = false;
+  try {
+    introPlayed = sessionStorage.getItem(PLAYED) === "1";
+    sessionStorage.setItem(PLAYED, "1");
+  } catch {}
+
   if (!reduced) {
     document.querySelectorAll<HTMLElement>("[data-scramble]").forEach((root) => {
       const delay = Number(root.dataset.delay ?? 0);
@@ -94,7 +103,7 @@ const words = text.split(" ");
           bitSpare: null as { l: number; r: number } | null, // clear px while a bit shows
           oneSpare: null as { l: number; r: number } | null, // clear px while a "1" shows
           couple: [] as HTMLElement[], // neighbours that must scramble alongside it
-          resolveAt: delay + i * STAGGER + Math.random() * JITTER,
+          resolveAt: introPlayed ? 0 : delay + i * STAGGER + Math.random() * JITTER,
           nextTick: 0,
         }),
       );
@@ -240,7 +249,7 @@ const words = text.split(" ");
       document.fonts?.ready.then(fit);
       window.addEventListener("resize", fit);
 
-      chars.forEach(scramble);
+      if (!introPlayed) chars.forEach(scramble);
 
       const start = performance.now();
       let running = false;
@@ -268,7 +277,7 @@ const words = text.split(" ");
         running = true;
         requestAnimationFrame(frame);
       };
-      run();
+      if (!introPlayed) run();
 
       // Hover: only the chars near the pointer scramble, then settle back.
       root.addEventListener("pointermove", (e) => {
