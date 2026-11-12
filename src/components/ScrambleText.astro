@@ -1,0 +1,304 @@
+---
+// Text that decodes from its own binary (coloured bits of each char code) into its final copy.
+// Each real character keeps its slot (rendered transparent while scrambling)
+// so the layout never shifts; the random glyph sits on top as an overlay.
+interface Props {
+  text: string;
+  class?: string;
+  delay?: number; // ms before this block starts resolving
+}
+
+const { text, class: cls = "", delay = 0 } = Astro.props;
+const words = text.split(" ");
+---
+
+<span class={`scramble ${cls}`} data-scramble data-delay={delay} aria-label={text}>
+  {
+    words.map((word, w) => (
+      <>
+        <span class="whitespace-nowrap" aria-hidden="true">
+          {[...word].map((ch) => (
+            <span class="scramble-char">{ch}</span>
+          ))}
+        </span>
+        {w < words.length - 1 && " "}
+      </>
+    ))
+  }
+</span>
+
+<style is:global>
+  .scramble-char {
+    position: relative;
+    transition: color 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .scramble-char[data-glyph] {
+    color: transparent;
+  }
+  /* every bit is the same size: full letter height, narrowed by
+     --glyph-squeeze so a "0" fits inside most letters. --glyph-x (set in the
+     script) centres the digit's ink, not its advance box, in its letter's slot */
+  .scramble-char[data-glyph]::after {
+    content: attr(data-glyph);
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateX(var(--glyph-x, 0px)) scaleX(var(--glyph-squeeze, 1));
+    transform-origin: 0 0;
+    color: var(--glyph-color);
+  }
+  /* thin glyph bounding box on a few chars, like a type-debug overlay */
+  .scramble-char[data-glyph][data-boxed]::before {
+    content: "";
+    position: absolute;
+    inset: 0.12em 0 0.02em;
+    border: 1px solid var(--glyph-color);
+    border-radius: 2px;
+    opacity: 0.35;
+  }
+</style>
+
+<script>
+  // Apple colours, capped at four. Blue is the apple.com blue (also the site's
+  // hover colour) and is listed three times so about half the bits are blue.
+  const BLUE = "#0071E3";
+  const COLORS = [
+    BLUE,
+    BLUE,
+    BLUE,
+    "#FF3B30", // red
+    "#FF9500", // orange
+    "#5856D6", // indigo
+  ];
+  const STAGGER = 32; // ms between neighbouring chars resolving
+  const JITTER = 260; // random extra hold per char
+  const TICK = 70; // how often an unresolved glyph changes
+  const RADIUS = 48; // px around the cursor that re-scrambles on hover
+  const HOVER_HOLD = 220; // how long a hovered char keeps scrambling
+
+  const pick = <T,>(s: ArrayLike<T>) => s[Math.floor(Math.random() * s.length)];
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!reduced) {
+    document.querySelectorAll<HTMLElement>("[data-scramble]").forEach((root) => {
+      const delay = Number(root.dataset.delay ?? 0);
+      const chars = [...root.querySelectorAll<HTMLElement>(".scramble-char")].map(
+        (el, i) => ({
+          el,
+          // the char's own code in binary, e.g. "H" -> 01001000
+          bits: (el.textContent ?? "").charCodeAt(0).toString(2).padStart(8, "0"),
+          fits: "", // the bits this letter may show without touching a neighbour, set by fit()
+          x: {} as Record<string, number>, // offset that centres each digit's ink
+          spare: { l: 0, r: 0 }, // clear px at each edge, letter or bit showing
+          bitSpare: null as { l: number; r: number } | null, // clear px while a bit shows
+          oneSpare: null as { l: number; r: number } | null, // clear px while a "1" shows
+          couple: [] as HTMLElement[], // neighbours that must scramble alongside it
+          resolveAt: delay + i * STAGGER + Math.random() * JITTER,
+          nextTick: 0,
+        }),
+      );
+
+      // show one bit of the char's binary, so the overlay is the real text encoded
+      const scramble = ({ el, fits, x }: (typeof chars)[number]) => {
+        if (!fits) {
+          // too narrow for any digit: keep the real character
+          delete el.dataset.glyph;
+          el.removeAttribute("data-boxed");
+          return;
+        }
+        const bit = pick(fits);
+        el.dataset.glyph = bit;
+        el.style.setProperty("--glyph-x", `${x[bit]}px`);
+        el.style.setProperty("--glyph-color", pick(COLORS));
+        el.toggleAttribute("data-boxed", Math.random() < 0.15);
+      };
+
+      // Bits must never touch a neighbouring letter or bit. Widths are measured
+      // on the glyphs' ink (canvas), not their advance boxes, since side
+      // bearings are empty space.
+      //  - A bit that fits inside its own letter is always allowed.
+      //  - A thin letter (i, t, I) is narrower than even a "1", so its "1"
+      //    spills into the neighbours' empty edges, shifted toward whichever
+      //    side has more room. If a neighbour's letter is too close, the
+      //    neighbour is "coupled": it always scrambles while the thin letter
+      //    does, so the thin letter's "1" sits next to a narrower bit instead.
+      //  - Punctuation (, ’ . !) never scrambles and just stays as itself.
+      const GAP = 0.5; // px of clear space kept between inks
+      // SF Pro's "0" is wider than most lowercase letters; narrowing the digits
+      // a little lets 0s fit, so the bits read as real binary, not all 1s
+      const SQUEEZE = 0.8;
+      root.style.setProperty("--glyph-squeeze", String(SQUEEZE));
+      const ctx = document.createElement("canvas").getContext("2d")!;
+      const ink = (s: string) => {
+        const m = ctx.measureText(s);
+        return { l: -m.actualBoundingBoxLeft, r: m.actualBoundingBoxRight };
+      };
+      const isLetter = (el: HTMLElement) => /\p{L}/u.test(el.textContent ?? "");
+      type Char = (typeof chars)[number];
+      const byEl = new Map(chars.map((c) => [c.el, c]));
+      const coupled = (c: Char) => c.couple.map((el) => byEl.get(el)!);
+      // neighbour in the same word (words are separate spans)
+      const near = (i: number, d: -1 | 1) =>
+        chars[i + d]?.el.parentElement === chars[i].el.parentElement ? chars[i + d] : null;
+
+      const fit = () => {
+        const one = new Map<Char, { l: number; r: number; w: number }>();
+        for (const c of chars) {
+          const cs = getComputedStyle(c.el);
+          ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+          const w = c.el.getBoundingClientRect().width;
+          const real = ink(c.el.textContent ?? "");
+          const half: Record<string, number> = {};
+          for (const d of "01") {
+            const raw = ink(d);
+            const g = { l: raw.l * SQUEEZE, r: raw.r * SQUEEZE };
+            half[d] = (g.r - g.l) / 2;
+            c.x[d] = w / 2 - (g.l + g.r) / 2;
+            if (d === "1") one.set(c, { ...g, w });
+          }
+          c.fits = [...c.bits].filter((d) => half[d] <= w / 2 - GAP / 2).join("");
+          c.spare = { l: real.l, r: w - real.r };
+          c.bitSpare = null;
+          c.oneSpare = null;
+          c.couple = [];
+          if (c.fits) {
+            const b = w / 2 - Math.max(...[...c.fits].map((d) => half[d]));
+            c.bitSpare = { l: b, r: b };
+            c.oneSpare = { l: w / 2 - half["1"], r: w / 2 - half["1"] };
+            c.spare = { l: Math.min(c.spare.l, b), r: Math.min(c.spare.r, b) };
+          }
+        }
+
+        // thinnest letters claim room first (i before t), since they need most
+        const thin = chars.filter((c) => !c.fits && isLetter(c.el));
+        thin.sort((a, b) => one.get(a)!.w - one.get(b)!.w);
+        thin.forEach((c) => {
+          const i = chars.indexOf(c);
+          const { l, r, w } = one.get(c)!;
+          const need = r - l - w; // how far the "1" overhangs the slot in total
+          const L = near(i, -1);
+          const R = near(i, 1);
+          // Try the loosest arrangement first:
+          //  0: neighbours may show their letter or any bit
+          //  1: neighbours scramble alongside (coupled), any of their bits
+          //  2: neighbours scramble alongside and only show their 1s
+          const tiers = ["spare", "bitSpare", "oneSpare"] as const;
+          const room = (n: Char | null, s: "l" | "r", tier: number) =>
+            !n ? Infinity : ((n[tiers[tier]] ?? n.spare)[s] - GAP / 2);
+          let tier = 0;
+          let rl = 0;
+          let rr = 0;
+          for (; tier < tiers.length; tier++) {
+            rl = room(L, "r", tier);
+            rr = room(R, "l", tier);
+            if (rl + rr >= need) break;
+          }
+          if (tier === tiers.length) return;
+          const oL = Math.min(rl, Math.max(need / 2, need - rr)); // left overhang
+          c.x["1"] = -oL - l;
+          c.fits = c.bits.replace(/0/g, "");
+          c.bitSpare = { l: -oL, r: oL - need };
+          c.oneSpare = c.bitSpare;
+          c.spare = {
+            l: Math.min(c.spare.l, c.bitSpare.l),
+            r: Math.min(c.spare.r, c.bitSpare.r),
+          };
+          if (tier > 0) {
+            for (const n of [L, R]) {
+              if (!n?.fits) continue;
+              if (tier === 2) {
+                n.fits = n.bits.replace(/0/g, "");
+                n.bitSpare = n.oneSpare;
+                n.spare = {
+                  l: Math.min(n.spare.l, n.oneSpare!.l),
+                  r: Math.min(n.spare.r, n.oneSpare!.r),
+                };
+              }
+              c.couple.push(n.el);
+            }
+          }
+        });
+
+        for (const c of chars) {
+          if (!c.fits) scramble(c);
+          holdCoupled(c);
+        }
+      };
+
+      // coupled neighbours (and theirs, in turn) never settle before c does
+      const holdCoupled = (c: Char, each?: (n: Char) => void, seen = new Set([c])) => {
+        for (const n of coupled(c)) {
+          if (seen.has(n)) continue;
+          seen.add(n);
+          n.resolveAt = Math.max(n.resolveAt, c.resolveAt);
+          each?.(n);
+          holdCoupled(n, each, seen);
+        }
+      };
+      fit();
+      document.fonts?.ready.then(fit);
+      window.addEventListener("resize", fit);
+
+      chars.forEach(scramble);
+
+      const start = performance.now();
+      let running = false;
+      const frame = (now: number) => {
+        const t = now - start;
+        let pending = 0;
+        for (const c of chars) {
+          if (!c.el.dataset.glyph) continue;
+          if (t >= c.resolveAt) {
+            delete c.el.dataset.glyph;
+            c.el.removeAttribute("data-boxed");
+            continue;
+          }
+          pending++;
+          if (t >= c.nextTick) {
+            scramble(c);
+            c.nextTick = t + TICK;
+          }
+        }
+        running = pending > 0;
+        if (running) requestAnimationFrame(frame);
+      };
+      const run = () => {
+        if (running) return;
+        running = true;
+        requestAnimationFrame(frame);
+      };
+      run();
+
+      // Hover: only the chars near the pointer scramble, then settle back.
+      root.addEventListener("pointermove", (e) => {
+        if (e.pointerType !== "mouse") return;
+        const t = performance.now() - start;
+        let hit = false;
+        for (const c of chars) {
+          const r = c.el.getBoundingClientRect();
+          const dx = e.clientX - (r.left + r.width / 2);
+          const dy = e.clientY - (r.top + r.height / 2);
+          const d = Math.hypot(dx, dy);
+          if (d > RADIUS) continue;
+          // closer chars hold a little longer, so the edge feathers out
+          const hold = HOVER_HOLD * (1 - d / RADIUS) + Math.random() * 120;
+          c.resolveAt = Math.max(c.resolveAt, t + hold);
+          holdCoupled(c, (n) => {
+            if (!n.el.dataset.glyph) {
+              scramble(n);
+              n.nextTick = Infinity;
+            }
+          });
+          // swap to a single glyph and hold it — no cycling while hovered
+          if (!c.el.dataset.glyph) {
+            scramble(c);
+            c.nextTick = Infinity;
+          }
+          hit = true;
+        }
+        if (hit) run();
+      });
+    });
+  }
+</script>

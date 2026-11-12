@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PageTabs from "../components/PageTabs.astro";
+import ScrambleText from "../components/ScrambleText.astro";
 
 ---
 
@@ -17,10 +18,12 @@ import PageTabs from "../components/PageTabs.astro";
         <h1
           class="max-w-3xl text-[32px] md:text-[48px] leading-[1.16] tracking-[-0.03em] font-semibold"
         >
-          <span class="block">Hi, I’m Tiya!</span>
-          <span class="block text-soft">
-            I design moments that spark human connection.
-          </span>
+          <ScrambleText class="block" text="Hi, I’m Tiya!" />
+          <ScrambleText
+            class="block text-soft"
+            text="I design moments that spark human connection."
+            delay={200}
+          />
         </h1>
 
         <!-- education -->
