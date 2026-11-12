@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import AboutSidebar from "../components/AboutSidebar.astro";
 import PageTabs from "../components/PageTabs.astro";
 
 ---
@@ -87,222 +86,160 @@ import PageTabs from "../components/PageTabs.astro";
         </ul>
       </header>
 
-      <hr class="mt-16 md:mt-24 border-t border-rule" />
-
-      <div
-        class="mt-10 lg:mt-14 grid grid-cols-1 lg:grid-cols-[180px_400px_1fr] gap-10 lg:gap-14"
-      >
-        <!-- left: section nav (sticky on desktop) -->
-        <div class="lg:sticky lg:top-12 self-start">
-          <AboutSidebar active="hi" />
-        </div>
-
-        <!-- middle: scattered photo cluster (static, scrolls with content) -->
-        <div class="self-start hidden lg:block">
-          <div class="flex flex-col items-center gap-6">
-            <!-- main portrait as a polaroid, centered -->
-            <div
-              class="bg-white p-3 pb-12 shadow-[0_20px_45px_-18px_rgba(15,23,42,0.35)] -rotate-1"
-            >
-              <img
-                src="/photo-main.jpg"
-                alt=""
-                class="block w-[220px] h-[220px] object-cover"
-                onerror="this.style.background='linear-gradient(135deg,#1f2937,#475569)';this.removeAttribute('src');"
-              />
-            </div>
-
-            <!-- bottom row: 3 photos in a row under the polaroid, with subtle tilts -->
-            <div class="flex items-center justify-center gap-4">
-              <img
-                src="/food-pic.JPG"
-                alt=""
-                class="w-[88px] h-[72px] object-cover rounded-lg shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)] -rotate-[6deg]"
-                onerror="this.style.background='linear-gradient(135deg,#bae6fd,#a5b4fc)';this.removeAttribute('src');"
-              />
-              <img
-                src="/youcode-pic.png"
-                alt=""
-                class="w-[88px] h-[72px] object-cover rounded-lg shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)] rotate-[2deg] brightness-105 contrast-150 saturate-175"
-                onerror="this.style.background='linear-gradient(135deg,#fecdd3,#f9a8d4)';this.removeAttribute('src');"
-              />
-              <img
-                src="/bolt-event.png"
-                alt=""
-                class="w-[88px] h-[72px] object-cover rounded-lg shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)] rotate-[6deg] brightness-110 contrast-150 saturate-200"
-                onerror="this.style.background='linear-gradient(135deg,#c4b5fd,#c084fc)';this.removeAttribute('src');"
-              />
-            </div>
-          </div>
-        </div>
-
-      <!-- right: content -->
-      <div class="max-w-2xl">
-        <section id="hi" class="pt-2 pb-14 scroll-mt-20">
-          <h2
-            class="text-title1 md:text-large-title font-semibold"
-          >
-            Hi, I'm Tiya!
+      <!-- bento grid: one card per section -->
+      <div class="mx-auto mt-16 md:mt-24 max-w-[880px] grid grid-cols-1 md:grid-cols-10 gap-2.5">
+        <!-- hi: intro + main photo (tall, left) -->
+        <section
+          id="hi"
+          class="rounded-3xl bg-[#f5f5f7] p-6 flex flex-col md:col-span-5 md:row-span-2"
+        >
+          <h2 class="text-title1 leading-[1.16] tracking-[-0.02em] font-semibold">
+            I love design &amp; technology,
+            <span class="text-soft">
+              and the small moments where the two quietly come together to make
+              something feel human.
+            </span>
           </h2>
 
-          <!-- meta line: location + education -->
-          <div
-            class="mt-5 flex flex-wrap items-center gap-x-7 gap-y-2 text-subhead text-soft"
-          >
-            <div class="flex items-center gap-2">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12 22s-7-7.58-7-13a7 7 0 0 1 14 0c0 5.42-7 13-7 13z"
-                ></path>
-                <circle cx="12" cy="9" r="2.5"></circle>
-              </svg>
-              <span>Vancouver</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M22 10 12 5 2 10l10 5 10-5z"></path>
-                <path d="M6 12v5a6 6 0 0 0 12 0v-5"></path>
-              </svg>
-              <span>B.Sc. Computer Science @ UBC</span>
-            </div>
-          </div>
+          <p class="mt-5 flex items-center gap-1.5 text-subhead text-soft">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 22s-7-7.58-7-13a7 7 0 0 1 14 0c0 5.42-7 13-7 13z"></path>
+              <circle cx="12" cy="9" r="2.5"></circle>
+            </svg>
+            <span>Vancouver</span>
+          </p>
 
-          <p class="mt-6 text-reading text-body">
-            I love design, technology, &amp; the small moments where the two
-            quietly come together to make something feel human.
-          </p>
-          <p class="mt-4 text-reading text-body">
-            I view myself as a creative thinker. I am drawn to design that highlights human experiences and feels purposeful. For me, there is joy in the constant pursuit of work that aligns who I am with what I create.
-          </p>
-          <p class="mt-4 text-reading text-body">
-            3 words to describe me: <em>quiet, curious, always cooking</em>.
-          </p>
+          <div class="mt-8 flex flex-1 items-center justify-center">
+            <img
+              src="/photo-main.jpg"
+              alt="Tiya by the water at night"
+              class="block aspect-square w-full max-w-[200px] rounded-2xl object-cover shadow-[0_20px_45px_-18px_rgba(15,23,42,0.35)]"
+              onerror="this.style.background='linear-gradient(135deg,#1f2937,#475569)';this.removeAttribute('src');"
+            />
+          </div>
         </section>
 
-        <section
-          id="experience"
-          class="border-t border-rule pt-10 pb-14 scroll-mt-20"
-        >
-          <h2
-            class="text-title2 md:text-title1 font-semibold"
-          >
-            Experience
-          </h2>
-          <ol class="mt-6 space-y-6">
-            <li class="flex items-baseline justify-between gap-6">
-              <div>
-                <div class="text-callout font-semibold text-heading">
-                  Product Frontend Developer ·
-                  <span class="text-muted font-normal">UBC MINT MOSS</span>
-                </div>
-                <p class="mt-1 text-subhead text-soft max-w-lg">
-                  Making brain signal processing feel less like a lab and more like a tool built for people.
-                </p>
+        <!-- experience (top right) -->
+        <section id="experience" class="rounded-3xl bg-[#f5f5f7] p-6 md:col-span-5">
+          <h2 class="text-footnote font-medium text-soft">Experience</h2>
+          <ol class="mt-3 space-y-4">
+            <li>
+              <div class="flex items-baseline justify-between gap-4">
+                <h3 class="text-callout font-semibold">
+                  Product Frontend Developer <span class="text-soft">@ UBC MINT MOSS</span>
+                </h3>
+                <span class="shrink-0 text-footnote text-ghost tabular-nums">2025 — now</span>
               </div>
-              <span class="text-footnote text-ghost tabular-nums shrink-0">
-                2025 — now
-              </span>
+              <p class="mt-0.5 text-footnote text-muted">
+                Making brain signal processing feel less like a lab and more like a tool built for people.
+              </p>
             </li>
-            <li class="flex items-baseline justify-between gap-6">
-              <div>
-                <div class="text-callout font-semibold text-heading">
-                  Marketing Coordinator ·
-                  <span class="text-muted font-normal">youCode</span>
-                </div>
-                <p class="mt-1 text-subhead text-soft max-w-lg">
-                  Led the engagement and storytelling behind one of UBC's most community-driven hackathons.
-                </p>
+            <li>
+              <div class="flex items-baseline justify-between gap-4">
+                <h3 class="text-callout font-semibold">
+                  Marketing Coordinator <span class="text-soft">@ youCode</span>
+                </h3>
+                <span class="shrink-0 text-footnote text-ghost tabular-nums">2026</span>
               </div>
-              <span class="text-footnote text-ghost tabular-nums shrink-0">
-                2026
-              </span>
+              <p class="mt-0.5 text-footnote text-muted">
+                Led the engagement and storytelling behind one of UBC's most community-driven hackathons.
+              </p>
             </li>
-            <li class="flex items-baseline justify-between gap-6">
-              <div>
-                <div class="text-callout font-semibold text-heading">
-                  Frontend Web Developer ·
-                  <span class="text-muted font-normal">Nomadly</span>
-                </div>
-                <p class="mt-1 text-subhead text-soft max-w-lg">
-                  Brought wanderlust to the browser, one interactive destination at a time.
-                </p>
+            <li>
+              <div class="flex items-baseline justify-between gap-4">
+                <h3 class="text-callout font-semibold">
+                  Frontend Web Developer <span class="text-soft">@ Nomadly</span>
+                </h3>
+                <span class="shrink-0 text-footnote text-ghost tabular-nums">2025</span>
               </div>
-              <span class="text-footnote text-ghost tabular-nums shrink-0">
-                2025
-              </span>
+              <p class="mt-0.5 text-footnote text-muted">
+                Brought wanderlust to the browser, one interactive destination at a time.
+              </p>
             </li>
           </ol>
         </section>
 
-        <section
-          id="community"
-          class="border-t border-rule pt-10 pb-14 scroll-mt-20"
-        >
-          <h2
-            class="text-title2 md:text-title1 font-semibold"
-          >
-            Community
-          </h2>
-          <ul class="mt-6 space-y-5 text-subhead text-body">
-            <li class="flex items-center gap-5">
-              <div
-                class="shrink-0 w-14 h-14 rounded-full bg-fill flex items-center justify-center overflow-hidden"
-              >
-                <img
-                  src="/logo-mint.png"
-                  alt="UBC MINT logo"
-                  class="w-full h-full object-cover"
-                  onerror="this.style.display='none';"
-                />
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="text-reading font-semibold text-heading">UBC MINT</div>
-                <div class="text-subhead text-soft">
-                  SWE Product Front-End Developer
-                </div>
-              </div>
+        <!-- how I think (middle right) -->
+        <section class="rounded-3xl bg-[#f5f5f7] p-6 md:col-span-5">
+          <h2 class="text-footnote font-medium text-soft">How I think</h2>
+          <p class="mt-2 text-title3 font-semibold">
+            I'm drawn to design that highlights human experiences and feels purposeful.
+          </p>
+          <p class="mt-3 text-subhead text-muted">
+            I view myself as a creative thinker. For me, there is joy in the constant
+            pursuit of work that aligns who I am with what I create.
+          </p>
+        </section>
+
+        <!-- community (bottom left, narrower) -->
+        <section id="community" class="rounded-3xl bg-[#f5f5f7] p-6 flex flex-col md:col-span-4">
+          <div class="flex items-center gap-2">
+            <img
+              src="/logo-mint.png"
+              alt="UBC MINT logo"
+              class="h-9 w-9 rounded-lg bg-white object-cover"
+              onerror="this.style.display='none';"
+            />
+            <img
+              src="/logo-wics.jpg"
+              alt="UBC Women in CS logo"
+              class="h-9 w-9 rounded-lg bg-white object-cover"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <h2 class="mt-10 text-footnote font-medium text-soft md:mt-auto md:pt-10">Community</h2>
+          <ul class="mt-1.5 space-y-2.5">
+            <li>
+              <div class="text-callout font-semibold">UBC MINT</div>
+              <div class="text-footnote text-soft">SWE Product Front-End Developer</div>
             </li>
-            <li class="flex items-center gap-5">
-              <div
-                class="shrink-0 w-14 h-14 rounded-full bg-fill flex items-center justify-center overflow-hidden"
-              >
-                <img
-                  src="/logo-wics.jpg"
-                  alt="UBC Women in CS logo"
-                  class="w-full h-full object-cover"
-                  onerror="this.style.display='none';"
-                />
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="text-reading font-semibold text-heading">
-                  UBC Women in CS
-                </div>
-                <div class="text-subhead text-soft">
-                  youCode Marketing and Engagement Coordinator
-                </div>
-              </div>
+            <li>
+              <div class="text-callout font-semibold">UBC Women in CS</div>
+              <div class="text-footnote text-soft">youCode Marketing and Engagement Coordinator</div>
             </li>
           </ul>
+        </section>
+
+        <!-- 3 words + photo strip (bottom right, wider) -->
+        <section class="rounded-3xl bg-[#f5f5f7] p-6 flex flex-col md:col-span-6">
+          <div class="flex items-center gap-3">
+            <img
+              src="/food-pic.JPG"
+              alt=""
+              class="h-16 w-20 rounded-xl object-cover -rotate-[4deg] shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)]"
+              onerror="this.style.background='linear-gradient(135deg,#bae6fd,#a5b4fc)';this.removeAttribute('src');"
+            />
+            <img
+              src="/youcode-pic.png"
+              alt=""
+              class="h-16 w-20 rounded-xl object-cover rotate-[2deg] brightness-105 contrast-150 saturate-175 shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)]"
+              onerror="this.style.background='linear-gradient(135deg,#fecdd3,#f9a8d4)';this.removeAttribute('src');"
+            />
+            <img
+              src="/bolt-event.png"
+              alt=""
+              class="h-16 w-20 rounded-xl object-cover rotate-[5deg] brightness-110 contrast-150 saturate-200 shadow-[0_14px_30px_-12px_rgba(15,23,42,0.3)]"
+              onerror="this.style.background='linear-gradient(135deg,#c4b5fd,#c084fc)';this.removeAttribute('src');"
+            />
+          </div>
+          <div class="mt-8 md:mt-auto md:pt-10">
+            <p class="text-title3 font-semibold text-soft">
+              3 words to describe me…
+            </p>
+            <p class="text-[28px] md:text-[32px] leading-[1.15] tracking-[-0.03em] font-semibold">
+              quiet, curious, always cooking
+            </p>
+          </div>
         </section>
       </div>
     </div>
