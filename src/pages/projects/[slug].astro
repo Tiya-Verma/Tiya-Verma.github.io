@@ -46,14 +46,13 @@ const rich = (t: string) =>
     .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-heading">$1</strong>')
     .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
 
-const info = (
-  project.info ?? [
+const info = [
+  ...(project.info ?? [
+    { label: "Type", value: project.type },
     { label: "Role", value: project.role },
-    { label: "Team", value: project.team },
-    { label: "Timeline", value: project.timeline },
-    { label: "Skills", value: project.skills.join(", ") },
-  ]
-).filter((i) => i.value);
+  ]),
+  ...(project.github ? [{ label: "Link", value: "GitHub", href: project.github }] : []),
+].filter((i) => i.value);
 ---
 
 <Layout title={`${project.company} — tiya verma`}>

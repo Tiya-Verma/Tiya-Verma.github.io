@@ -131,7 +131,11 @@ export interface Project {
   heroVideoFormat?: "phone" | "desktop";
   /** frame shape for a desktop demo, e.g. "4 / 3"; the video fills it, cropped from the centre */
   heroAspect?: string;
-  /** overrides the default Role / Team / Timeline / Skills info blocks */
+  /** what kind of project it is (e.g. "Web App"); leads the default info blocks */
+  type?: string;
+  /** repo, shown as the last info block */
+  github?: string;
+  /** overrides the default Type / Role info blocks */
   info?: { label: string; value: string; href?: string }[];
 }
 
@@ -266,6 +270,7 @@ export const projects: Project[] = [
   */
   {
     slug: "tier-evo",
+    github: "https://github.com/Tiya-Verma/evo-parking-tiers",
     company: "Evo Parking Layer",
     year: "2026",
     bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
@@ -278,10 +283,8 @@ export const projects: Project[] = [
     timeline: "2026",
     skills: [],
     info: [
-      { label: "Type", value: "Concept Project" },
+      { label: "Type", value: "Mobile App" },
       { label: "Role", value: "Designer & Developer" },
-      { label: "Team", value: "Solo" },
-      { label: "Year", value: "2026" },
     ],
     overview: [
       // "**Evo Parking Layer** adds lot status, floor level, access steps and closing alerts to Evo's existing booking flow, with no new screens and zero change for street-parked cars.",
@@ -453,6 +456,7 @@ export const projects: Project[] = [
   */
   {
     slug: "procreate-3d",
+    github: "https://github.com/Tiya-Verma/procreate3D",
     company: "Procreate 3D",
     year: "2026",
     bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
@@ -467,12 +471,6 @@ export const projects: Project[] = [
     info: [
       { label: "Type", value: "iPadOS App" },
       { label: "Role", value: "Designer & iOS Developer" },
-      { label: "Year", value: "2026" },
-      // {
-      //   label: "Link",
-      //   value: "GitHub",
-      //   href: "https://github.com/Tiya-Verma/procreate3D",
-      // },
     ],
     overview: [
       "A small iPad app that takes a closed 2D drawing and inflates it into a soft, claymation-style 3D form. It's designed to live inside a designer's existing workflow, not replace it.",
@@ -549,6 +547,8 @@ export const projects: Project[] = [
   },
   {
     slug: "alice-in-wellnessland",
+    type: "Progressive Web App (PWA)",
+    github: "https://github.com/Tiya-Verma/alice-in-wellnessland",
     company: "Alice in Wellnessland",
     year: "2026",
     bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
@@ -570,7 +570,6 @@ export const projects: Project[] = [
     overview: [
       "Alice in Wellnessland is an AI-powered wellness companion built in one hackathon weekend. It consolidates three tools people normally juggle across separate apps — journaling, mood tracking, and goal-setting into a single, narrative-driven space loosely framed around Alice's Adventures in Wonderland.",
       "Three named surfaces shape the experience. \"Down the Rabbit Hole\" lets you journal by text or voice, with Gemini transcribing and reflecting back. \"The Looking Glass\" analyzes entries in real time for mood, stressors, and patterns. \"The Queen's Quest\" pairs goal-setting with a chatbot that nudges objectives toward SMART criteria.",
-      "Source: https://github.com/Tiya-Verma/alice-in-wellnessland.git",
     ],
     problem: [
       "Wellness habits live in too many places such as a separate journaling app, a separate mood tracker, a separate goal tracker. Switching between them is friction that quietly undermines the habit they're supposed to support.",
@@ -594,6 +593,8 @@ export const projects: Project[] = [
   },
   {
     slug: "moss",
+    type: "Web Dashboard",
+    github: "https://github.com/Tiya-Verma/fullstack-moss-app",
     company: "UBC MINT",
     year: "2025 — now",
     bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
@@ -614,7 +615,6 @@ export const projects: Project[] = [
     overview: [
       "MOSS is UBC MINT's brain-signal processing app for the Muse EEG headset. It streams data live over WebSockets, stores it in TimescaleDB, and surfaces it through a front-end built for researchers and curious students.",
       "I work on the front-end: turning a fairly technical real-time pipeline into a UI that doesn't feel like a lab readout. The goal is making brain-signal processing feel less like a research instrument and more like a tool built for people.",
-      "Source: https://github.com/Tiya-Verma/fullstack-moss-app",
     ],
     problem: [
       "Most EEG tooling is built for clinicians or signal-processing engineers as the interfaces assume you already know what to look for.",
@@ -638,6 +638,8 @@ export const projects: Project[] = [
   },
   {
     slug: "nomadly-earth",
+    type: "Website",
+    github: "https://github.com/Tiya-Verma/nomadly_earth",
     company: "Nomadly",
     year: "2024",
     bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
@@ -663,7 +665,7 @@ export const projects: Project[] = [
       "Nomadly (nomadly.me) is a lifestyle platform for digital nomads with its tagline is \"The world is yours.\" The site helps remote workers pick a country that fits their work, budget, and life through a quiz, a regional country explorer, and a blog/community layer.",
       "I designed and built the 3D interactive globe that sits at the center of the destination-discovery flow. Instead of choosing a region from a flat dropdown, a visitor can drag the globe, hover a country, and let the surface itself become the navigation. The feature reframes \"picking a country\" from a form-filling task into something closer to looking at a map and wondering.",
       "Tech-wise it's a React + Vite component using react-globe.gl on top of three.js / react-three-fiber, with Framer Motion handling smaller transitions and Tailwind for the surrounding UI.",
-      "Source: https://github.com/Tiya-Verma/nomadly_earth · Live: https://www.nomadly.me",
+      "Live: https://www.nomadly.me",
     ],
     problem: [
       "Nomadly's existing destination-discovery flow was a regional dropdown Europe, Asia, Middle East, Americas, Africa, Oceania. It asked the visitor to already know roughly where they wanted to go, which is the opposite of the openness that draws people to nomadism in the first place.",
@@ -706,6 +708,7 @@ export const projects: Project[] = [
   */
   {
     slug: "ai-codereviewer",
+    github: "https://github.com/Tiya-Verma/ai-security-codereviewer",
     company: "AI Security Reviewer",
     year: "2026",
     bg: "linear-gradient(140deg, #eef1fb 0%, #f3f4fb 50%, #f8f8fc 100%)",
@@ -717,14 +720,8 @@ export const projects: Project[] = [
     timeline: "2026",
     skills: [],
     info: [
-      { label: "Type", value: "Personal Project" },
+      { label: "Type", value: "CLI Tool" },
       { label: "Role", value: "Developer" },
-      { label: "Year", value: "2026" },
-      {
-        label: "Link",
-        value: "GitHub",
-        href: "https://github.com/Tiya-Verma/ai-security-codereviewer",
-      },
     ],
     overview: [
       "An AI security reviewer that gives Claude semantic understanding of a code change, not just pattern matching.",
@@ -899,15 +896,8 @@ tests/               # config, diff, metrics`,
     timeline: "2026",
     skills: [],
     info: [
-      // { label: "Type", value: "Personal Project" },
-      { label: "Type", value: "Browser Extension" },
+      { label: "Type", value: "Web Extension" },
       { label: "Role", value: "Developer" },
-      { label: "Year", value: "2026" },
-      // {
-      //   label: "Link",
-      //   value: "GitHub",
-      //   href: "https://github.com/Tiya-Verma/MoodPrint",
-      // },
     ],
     overview: ["A personal Pinterest taste engine."],
     problem: [],
@@ -1091,6 +1081,7 @@ dashboard/   Static pages: the orb field, the drift view, the raw event log`,
   */
   {
     slug: "qbit-go",
+    github: "https://github.com/Tiya-Verma/qBit-Go",
     company: "qBit-Go",
     year: "2026",
     bg: "linear-gradient(140deg, #ecf6f2 0%, #f2f8f5 50%, #f8fbf9 100%)",
@@ -1106,9 +1097,8 @@ dashboard/   Static pages: the orb field, the drift view, the raw event log`,
     timeline: "2026",
     skills: [],
     info: [
-      { label: "Type", value: "Web App & Systems" },
+      { label: "Type", value: "Web App" },
       { label: "Role", value: "Developer & Designer" },
-      { label: "Year", value: "2026" },
     ],
     overview: [
       "A BitTorrent client built from scratch in Go, with a live React dashboard embedded in a single binary.",
