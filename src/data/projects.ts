@@ -135,6 +135,8 @@ export interface Project {
   type?: string;
   /** repo, shown as the last info block */
   github?: string;
+  /** live site, linked as "Demo" in place of the repo */
+  demo?: string;
   /** overrides the default Type / Role info blocks */
   info?: { label: string; value: string; href?: string }[];
 }
@@ -639,7 +641,7 @@ export const projects: Project[] = [
   {
     slug: "nomadly-earth",
     type: "Website",
-    github: "https://github.com/Tiya-Verma/nomadly_earth",
+    demo: "https://www.nomadly.me/",
     company: "Nomadly",
     year: "2024",
     bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
@@ -665,7 +667,6 @@ export const projects: Project[] = [
       "Nomadly (nomadly.me) is a lifestyle platform for digital nomads with its tagline is \"The world is yours.\" The site helps remote workers pick a country that fits their work, budget, and life through a quiz, a regional country explorer, and a blog/community layer.",
       "I designed and built the 3D interactive globe that sits at the center of the destination-discovery flow. Instead of choosing a region from a flat dropdown, a visitor can drag the globe, hover a country, and let the surface itself become the navigation. The feature reframes \"picking a country\" from a form-filling task into something closer to looking at a map and wondering.",
       "Tech-wise it's a React + Vite component using react-globe.gl on top of three.js / react-three-fiber, with Framer Motion handling smaller transitions and Tailwind for the surrounding UI.",
-      "Live: https://www.nomadly.me",
     ],
     problem: [
       "Nomadly's existing destination-discovery flow was a regional dropdown Europe, Asia, Middle East, Americas, Africa, Oceania. It asked the visitor to already know roughly where they wanted to go, which is the opposite of the openness that draws people to nomadism in the first place.",

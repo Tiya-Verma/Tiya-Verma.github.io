@@ -51,7 +51,11 @@ const info = [
     { label: "Type", value: project.type },
     { label: "Role", value: project.role },
   ]),
-  ...(project.github ? [{ label: "Link", value: "GitHub", href: project.github }] : []),
+  ...(project.demo
+    ? [{ label: "Link", value: "Demo", href: project.demo }]
+    : project.github
+      ? [{ label: "Link", value: "GitHub", href: project.github }]
+      : []),
 ].filter((i) => i.value);
 ---
 
