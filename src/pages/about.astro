@@ -174,58 +174,51 @@ import ScrambleText from "../components/ScrambleText.astro";
 
         <!-- how I think (middle right) -->
         <section class="rounded-3xl bg-[#f5f5f7] p-6 md:col-span-5">
-          <h2 class="text-footnote font-medium text-soft">How I think</h2>
-          <p class="mt-2 text-title3 font-semibold">
-            I'm drawn to design that highlights human experiences and feels purposeful.
-          </p>
-          <p class="mt-3 text-subhead text-muted">
-            I view myself as a creative thinker. For me, there is joy in the constant
-            pursuit of work that aligns who I am with what I create.
-          </p>
+          <h2 class="text-[28px] md:text-[32px] leading-[1.15] tracking-[-0.03em] font-semibold">
+            <span class="text-[#1d1d1f]">Software Engineer</span>
+            <span class="mt-1 block text-[20px] md:text-[22px] tracking-[-0.02em] text-[#86868b]">with curiosity for design.</span>
+          </h2>
         </section>
 
         <!-- community (bottom left, narrower) -->
         <section id="community" class="rounded-3xl bg-[#f5f5f7] p-6 flex flex-col md:col-span-4">
-          <div class="flex items-center gap-2">
+          <div class="flex flex-1 items-center justify-center gap-6 py-10">
             <img
-              src="/logo-mint.png"
-              alt="UBC MINT logo"
-              class="h-9 w-9 rounded-lg bg-white object-cover"
+              src="/pmc_logo.webp"
+              alt="UBC PMC logo"
+              class="community-logo h-16 w-16 object-contain"
               onerror="this.style.display='none';"
             />
+            <img
+              src="/logo-mint-brain.png"
+              alt="UBC MINT logo"
+              class="community-logo h-16 w-16 object-contain"
+              onerror="this.style.display='none';"
+            />
+            <!-- the jpg has white corners baked in, so clip it to its circle -->
             <img
               src="/logo-wics.jpg"
               alt="UBC Women in CS logo"
-              class="h-9 w-9 rounded-lg bg-white object-cover"
+              class="community-logo h-16 w-16 rounded-full object-cover"
               onerror="this.style.display='none';"
             />
           </div>
-          <h2 class="mt-10 text-footnote font-medium text-soft md:mt-auto md:pt-10">Community</h2>
-          <ul class="mt-1.5 space-y-2.5">
-            <li>
-              <div class="text-callout font-semibold">UBC MINT</div>
-              <div class="text-footnote text-soft">SWE Product Front-End Developer</div>
-            </li>
-            <li>
-              <div class="text-callout font-semibold">UBC Women in CS</div>
-              <div class="text-footnote text-soft">youCode Marketing and Engagement Coordinator</div>
-            </li>
-          </ul>
+          <h2 class="text-title3 font-semibold text-[#86868b]">my communities at UBC</h2>
         </section>
 
-        <!-- my communities (bottom right, wider) -->
+        <!-- currently (bottom right, wider) -->
         <section class="rounded-3xl bg-[#f5f5f7] p-6 flex flex-col md:col-span-6">
           <div class="mt-auto pt-20 md:pt-10">
-            <p class="text-title3 font-semibold text-soft">
-              my communities…
+            <p class="text-title3 font-semibold text-[#86868b]">
+              currently…
             </p>
-            <!-- names share one grid cell and take turns, so the line never shifts -->
+            <!-- phrases share one grid cell and take turns, so the line never shifts -->
             <p
-              class="grid text-[28px] md:text-[32px] leading-[1.15] tracking-[-0.03em] font-semibold"
+              class="grid text-[28px] md:text-[32px] leading-[1.15] tracking-[-0.03em] font-semibold text-[#1d1d1f]"
               data-cycle
             >
-              <span class="sr-only">UBC MINT, Women in CS, youCode</span>
-              {["UBC MINT", "Women in CS", "youCode"].map((name, i) => (
+              <span class="sr-only">building new things, thinking about dessert, reading Shadowhunters</span>
+              {["building new things 🛠️", "thinking about dessert 🍰", "reading Shadowhunters 📖"].map((name, i) => (
                 <span class="cycle-item col-start-1 row-start-1" data-active={i === 0 ? "" : undefined} aria-hidden="true">
                   {name}
                 </span>
@@ -239,6 +232,20 @@ import ScrambleText from "../components/ScrambleText.astro";
 </Layout>
 
 <style>
+  .community-logo {
+    transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .community-logo:hover {
+    transform: scale(1.18);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .community-logo,
+    .community-logo:hover {
+      transition: none;
+      transform: none;
+    }
+  }
+
   .cycle-item {
     opacity: 0;
     transform: translateY(0.4em);
