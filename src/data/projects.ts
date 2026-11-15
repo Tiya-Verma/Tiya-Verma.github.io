@@ -479,12 +479,13 @@ export const projects: Project[] = [
     ],
     problem: [],
     sections: [
-      {
-        figure: {
-          src: "/projects/procreate-3d/hero.png",
-          alt: "Procreate 3D hero",
-        },
-      },
+      // photo cards hidden until the images are ready
+      // {
+      //   figure: {
+      //     src: "/projects/procreate-3d/hero.png",
+      //     alt: "Procreate 3D hero",
+      //   },
+      // },
       {
         label: "✏️ Drawing",
         list: "bullets",
@@ -539,10 +540,10 @@ export const projects: Project[] = [
           { heading: "Flat PNG render", body: "for anywhere else" },
           { heading: "Next: Vision Pro", body: "spatial preview" },
         ],
-        figure: {
-          src: "/projects/procreate-3d/result.png",
-          alt: "Procreate 3D result",
-        },
+        // figure: {
+        //   src: "/projects/procreate-3d/result.png",
+        //   alt: "Procreate 3D result",
+        // },
       },
     ],
     reflections: [],
