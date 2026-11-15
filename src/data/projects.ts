@@ -272,7 +272,7 @@ export const projects: Project[] = [
   */
   {
     slug: "tier-evo",
-    github: "https://github.com/Tiya-Verma/evo-parking-tiers",
+    demo: "https://evoparking-evo-parking-intelligence.vercel.app/",
     company: "Evo Parking Layer",
     year: "2026",
     bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
