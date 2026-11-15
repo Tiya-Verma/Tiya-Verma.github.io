@@ -3,6 +3,29 @@ import Layout from "../layouts/Layout.astro";
 import PageTabs from "../components/PageTabs.astro";
 import ScrambleText from "../components/ScrambleText.astro";
 
+// Moments board: a small numbered grid of photos with white squares tucked
+// into a few corners. To fill a slot, give it a src:
+//   { n: 1, photo: "/moments/01.jpg", alt: "..." }
+// A slot with photo: "" shows as a placeholder until then.
+type Moment = {
+  n: number;
+  photo?: string;
+  alt?: string;
+  accent?: "bl" | "br" | "tr"; // small white square tucked into a corner
+};
+
+const moments: Moment[] = [
+  { n: 1, photo: "/moments/01.jpg", alt: "Tiya in the sun holding a big plush sloth", accent: "bl" },
+  { n: 2, photo: "/moments/02.jpg", alt: "Two gelato cups held side by side" },
+  { n: 3, accent: "tr" },
+  { n: 4, photo: "/moments/03.jpg", alt: "UBC WiCS x Atlassian event from the check-in table" },
+  { n: 5 },
+  { n: 6, photo: "/moments/04.jpg", alt: "Tiya holding a crème brûlée with a Happy Birthday plate", accent: "br" },
+  { n: 7 },
+  { n: 8, photo: "/moments/05.jpg", alt: "Tiya and friends with a giant teddy bear in a lecture hall" },
+  { n: 9 },
+];
+
 ---
 
 <Layout title="about — tiya verma">
@@ -21,19 +44,19 @@ import ScrambleText from "../components/ScrambleText.astro";
           <ScrambleText class="block" text="Hi, I’m Tiya!" />
           <ScrambleText
             class="block text-soft"
-            text="I design moments that spark human connection."
+            text="I design products that spark human connection."
             delay={200}
           />
         </h1>
 
         <!-- education -->
         <p
-          class="mt-12 md:mt-16 flex items-center gap-2.5 text-footnote md:text-subhead text-body"
+          class="mt-12 md:mt-16 flex items-center gap-3 text-subhead md:text-reading text-body"
         >
           <img
             src="/ubc-logo.jpg"
             alt="UBC crest"
-            class="h-6 md:h-7 w-auto shrink-0"
+            class="h-7 md:h-9 w-auto shrink-0"
           />
           <span>B.Sc. Computer Science @ UBC</span>
         </p>
@@ -91,85 +114,56 @@ import ScrambleText from "../components/ScrambleText.astro";
 
       <!-- bento grid: one card per section -->
       <div class="mx-auto mt-16 md:mt-24 max-w-[880px] grid grid-cols-1 md:grid-cols-10 gap-2.5">
-        <!-- hi: intro + main photo (tall, left) -->
+        <!-- moments: small numbered board of photos and white squares (tall, left) -->
         <section
           id="hi"
-          class="rounded-3xl bg-[#f5f5f7] p-6 flex flex-col md:col-span-5 md:row-span-2"
+          class="flex min-h-[480px] items-center justify-center rounded-3xl bg-[#fafafa] p-6 md:col-span-5 md:row-span-2"
         >
-          <h2 class="text-title1 leading-[1.16] tracking-[-0.02em] font-semibold">
-            I love design &amp; technology,
-            <span class="text-soft">
-              and the small moments where the two quietly come together to make
-              something feel human.
-            </span>
-          </h2>
-
-          <p class="mt-5 flex items-center gap-1.5 text-subhead text-soft">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M12 22s-7-7.58-7-13a7 7 0 0 1 14 0c0 5.42-7 13-7 13z"></path>
-              <circle cx="12" cy="9" r="2.5"></circle>
-            </svg>
-            <span>Vancouver</span>
-          </p>
-
-          <div class="mt-8 flex flex-1 items-center justify-center">
-            <img
-              src="/photo-main.jpg"
-              alt="Tiya by the water at night"
-              class="block aspect-square w-full max-w-[200px] rounded-2xl object-cover shadow-[0_20px_45px_-18px_rgba(15,23,42,0.35)]"
-              onerror="this.style.background='linear-gradient(135deg,#1f2937,#475569)';this.removeAttribute('src');"
-            />
-          </div>
+          <ol class="grid w-full max-w-[270px] grid-cols-3 gap-x-3 gap-y-3">
+            {moments.map((m) => (
+              <li>
+                <span class="text-[11px] tabular-nums text-[#6e6e73]">({m.n})</span>
+                <div
+                  class:list={[
+                    "relative mt-1 aspect-square",
+                    m.photo === "" && "bg-[#e8e8ed]",
+                  ]}
+                >
+                  {m.photo && (
+                    <img src={m.photo} alt={m.alt ?? ""} loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+                  )}
+                  {m.accent && (
+                    <span
+                      class:list={[
+                        "absolute h-[34%] w-[34%] bg-white",
+                        m.accent === "bl" && "-bottom-[8%] -left-[8%]",
+                        m.accent === "br" && "-bottom-[8%] -right-[8%]",
+                        m.accent === "tr" && "right-[6%] top-[6%]",
+                      ]}
+                      aria-hidden="true"
+                    ></span>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ol>
         </section>
 
         <!-- experience (top right) -->
         <section id="experience" class="rounded-3xl bg-[#f5f5f7] p-6 md:col-span-5">
-          <h2 class="text-footnote font-medium text-soft">Experience</h2>
-          <ol class="mt-3 space-y-4">
-            <li>
-              <div class="flex items-baseline justify-between gap-4">
-                <h3 class="text-callout font-semibold">
-                  Product Frontend Developer <span class="text-soft">@ UBC MINT MOSS</span>
-                </h3>
-                <span class="shrink-0 text-footnote text-ghost tabular-nums">2025 — now</span>
-              </div>
-              <p class="mt-0.5 text-footnote text-muted">
-                Making brain signal processing feel less like a lab and more like a tool built for people.
-              </p>
-            </li>
-            <li>
-              <div class="flex items-baseline justify-between gap-4">
-                <h3 class="text-callout font-semibold">
-                  Marketing Coordinator <span class="text-soft">@ youCode</span>
-                </h3>
-                <span class="shrink-0 text-footnote text-ghost tabular-nums">2026</span>
-              </div>
-              <p class="mt-0.5 text-footnote text-muted">
-                Led the engagement and storytelling behind one of UBC's most community-driven hackathons.
-              </p>
-            </li>
-            <li>
-              <div class="flex items-baseline justify-between gap-4">
-                <h3 class="text-callout font-semibold">
-                  Frontend Web Developer <span class="text-soft">@ Nomadly</span>
-                </h3>
-                <span class="shrink-0 text-footnote text-ghost tabular-nums">2025</span>
-              </div>
-              <p class="mt-0.5 text-footnote text-muted">
-                Brought wanderlust to the browser, one interactive destination at a time.
-              </p>
-            </li>
-          </ol>
+          <h2 class="text-footnote font-medium text-soft">Work Experience</h2>
+          <ul class="mt-3 space-y-3">
+            {[
+              { role: "Software Developer", org: "UBC Product Management Club" },
+              { role: "Fullstack Developer", org: "UBC MINT" },
+              { role: "Marketing and Engagement Coordinator", org: "UBC WiCS youCode" },
+            ].map((job) => (
+              <li>
+                <div class="text-callout font-semibold">{job.role}</div>
+                <div class="text-footnote text-soft">{job.org}</div>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <!-- how I think (middle right) -->
