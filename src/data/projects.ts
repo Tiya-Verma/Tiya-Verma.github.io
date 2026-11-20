@@ -602,6 +602,8 @@ export const projects: Project[] = [
     year: "2025 — now",
     bg: "linear-gradient(140deg, #f1f5f9 0%, #f6f7fa 50%, #faf9fb 100%)",
     inner: mossArt,
+    heroVideo: "/UBC%20MINT%20Dashboard.mov",
+    heroVideoFormat: "desktop",
     title: "MOSS — brain signals, made legible",
     tagline:
       "A workspace that simplifies managing brain data",
