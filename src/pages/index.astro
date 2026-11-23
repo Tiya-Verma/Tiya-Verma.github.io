@@ -22,6 +22,10 @@ const rank = (slug: string) =>
       : order.length;
 const ordered = [...projects].sort((a, b) => rank(a.slug) - rank(b.slug));
 
+// first four stay visible; the rest open behind "More builds"
+const featured = ordered.slice(0, 4);
+const more = ordered.slice(4);
+
 ---
 
 <Layout title="tiya verma">
@@ -49,7 +53,7 @@ const ordered = [...projects].sort((a, b) => rank(a.slug) - rank(b.slug));
       <!-- 2-col project grid, full content width, tight gutters -->
       <section class="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-2 gap-2.5">
         {
-          ordered.map((p) => (
+          featured.map((p) => (
             <WorkCard
               company={p.company}
               bg={p.bg}
@@ -62,7 +66,55 @@ const ordered = [...projects].sort((a, b) => rank(a.slug) - rank(b.slug));
           ))
         }
       </section>
+
+      {
+        more.length > 0 && (
+          <>
+            <!-- hidden on the wrapper: the grid class would override it on the section -->
+            <div id="more-builds" hidden>
+              <section class="mt-2.5 grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                {more.map((p) => (
+                  <WorkCard
+                    company={p.company}
+                    bg={p.bg}
+                    inner={p.inner}
+                    tagline={p.tagline}
+                    heroVideo={p.cardVideo ?? p.heroVideo}
+                    heroVideoFormat={p.heroVideoFormat}
+                    href={`/projects/${p.slug}`}
+                  />
+                ))}
+              </section>
+            </div>
+
+            <div class="mt-10 md:mt-14 flex justify-center">
+              <button
+                type="button"
+                data-more-toggle
+                aria-controls="more-builds"
+                aria-expanded="false"
+                class="px-5 py-2.5 rounded-full bg-fill text-reading font-medium text-heading transition-colors duration-200 ease-apple hover:bg-black/[0.08]"
+              >
+                More builds
+              </button>
+            </div>
+          </>
+        )
+      }
     </div>
   </div>
 </Layout>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>("[data-more-toggle]");
+  const more = document.getElementById("more-builds");
+
+  toggle?.addEventListener("click", () => {
+    if (!more) return;
+    const open = more.hidden;
+    more.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.textContent = open ? "Show less" : "More builds";
+  });
+</script>
 
