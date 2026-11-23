@@ -55,7 +55,7 @@ const ordered = [...projects].sort((a, b) => rank(a.slug) - rank(b.slug));
               bg={p.bg}
               inner={p.inner}
               tagline={p.tagline}
-              heroVideo={p.heroVideo}
+              heroVideo={p.cardVideo ?? p.heroVideo}
               heroVideoFormat={p.heroVideoFormat}
               href={`/projects/${p.slug}`}
             />

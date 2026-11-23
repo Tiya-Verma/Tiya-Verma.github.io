@@ -128,6 +128,8 @@ export interface Project {
   sections?: ProjectSection[];
   reflections: { heading: string; body: string }[];
   heroVideo?: string;
+  /** optional separate render for the home-page card (defaults to heroVideo) */
+  cardVideo?: string;
   heroVideoFormat?: "phone" | "desktop";
   /** frame shape for a desktop demo, e.g. "4 / 3"; the video fills it, cropped from the centre */
   heroAspect?: string;
@@ -717,6 +719,10 @@ export const projects: Project[] = [
     year: "2026",
     bg: "linear-gradient(140deg, #eef1fb 0%, #f3f4fb 50%, #f8f8fc 100%)",
     inner: codeReviewerArt,
+    heroVideo: "/secreview-page.mp4", // content centred for the project page
+    cardVideo: "/secreview-cover.mp4", // content kept high, clear of the card's title blur
+    heroVideoFormat: "desktop",
+    heroAspect: "16 / 10", // match the 2880x1800 render so the header bar isn't cropped
     title: "AI Security Reviewer",
     tagline: "Benchmarked AI security review for code changes",
     role: "Developer",
@@ -894,7 +900,7 @@ tests/               # config, diff, metrics`,
     year: "2026",
     bg: "linear-gradient(140deg, #fbeff4 0%, #fbf3f6 50%, #fcf8fa 100%)",
     inner: moodprintArt,
-    heroVideo: "/moodprint-demo-video.mov",
+    heroVideo: "/moodprint-demo-video.mp4",
     heroVideoFormat: "desktop",
     title: "MoodPrint",
     tagline: "A personal Pinterest taste engine",
