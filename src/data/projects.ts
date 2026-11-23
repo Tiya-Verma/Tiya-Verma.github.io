@@ -889,6 +889,7 @@ tests/               # config, diff, metrics`,
   */
   {
     slug: "moodprint",
+    demo: "https://tiya-verma.github.io/MoodPrint/",
     company: "MoodPrint",
     year: "2026",
     bg: "linear-gradient(140deg, #fbeff4 0%, #fbf3f6 50%, #fcf8fa 100%)",
